@@ -24,7 +24,7 @@
     </div>
     <div :class="$style.f_s6" style="margin-right: 20px;">
       <el-card shadow="always" :class="$style.f_kp">
-        <span :class="$style.f_tprq">本月</span>
+        <span :class="$style.f_tprq">本日</span>
         <img src="../assets/img/Stroke 3.png" alt :class="$style.f_tp2">
         <div :class="$style.f_wz">
           <p :class="$style.f_dd1">数据量</p>
@@ -347,111 +347,65 @@ export default {
     },
     // 日(数据采集)
     drawLine1 () {
-      let name = []
-      let value = []
-      // let token = window.sessionStorage.token.slice(1,37)
-      // ,{headers:{ 'api_token':token}}
-      // console.log(window.sessionStorage.token)
-      this.$http.get(`pc/task/countCrowdHistogram`).then(res => {
+      this.$http.get(`pc/merchant/authenticRight`, {
+        params: {
+          type: 'day',
+        }
+      }).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
-          data.forEach(item => {
-            name.push(item.name)
-            value.push(item.num)
+          // console.log(data)
+          let x = []
+          data.x.forEach(item => {
+            x.push(item + ":00")
           })
-          // 基于准备好的dom，初始化echarts实例
           let myChart = this.$echarts.init(document.getElementById("myChart1"));
           // 绘制图表
-          let option = {
-            color: ['#22314F'],
+          let option = option = {
+            title: {
+              text: '本日数据确权统计'
+            },
             tooltip: {
-              trigger: 'axis',
-              axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-              }
+              trigger: 'axis'
+            },
+            color: ['#9013FE', '#3B7CFF'],
+            legend: {
+              data: ['数据收益', '任务收益']
             },
             grid: {
-              top: '8%',
               left: '3%',
               right: '4%',
-              bottom: '0',
+              bottom: '3%',
               containLabel: true
             },
-            xAxis: [
-              {
-                type: 'category',
-                data: name,
-                axisTick: {
-                  alignWithLabel: true
-                },
-                axisLabel: {
-                  interval: 0,
-                  formatter: function (params) {
-                    var newParamsName = "";
-                    var paramsNameNumber = params.length;
-                    var provideNumber = 2; //一行显示几个字
-                    var rowNumber = Math.ceil(paramsNameNumber / provideNumber);
-                    if (paramsNameNumber > provideNumber) {
-                      for (var p = 0; p < rowNumber; p++) {
-                        var tempStr = "";
-                        var start = p * provideNumber;
-                        var end = start + provideNumber;
-                        if (p == rowNumber - 1) {
-                          tempStr = params.substring(start, paramsNameNumber);
-                        } else {
-                          tempStr = params.substring(start, end) + "\n";
-                        }
-                        newParamsName += tempStr;
-                      }
-                    } else {
-                      newParamsName = params;
-                    }
-                    return newParamsName;
-                  }
-                },
-                axisLine: {
-                  lineStyle: {
-                    color: '#000', // X轴及其文字颜色
-                  }
-                }
+            toolbox: {
+              feature: {
+                saveAsImage: {}
               }
-            ],
-            yAxis: [
-              {
-                type: 'value',
-                axisLine: {
-                  lineStyle: {
-                    color: '#000', // X轴及其文字颜色
-                  }
-                }
-              }
-            ],
+            },
+            xAxis: {
+              type: 'category',
+              boundaryGap: false,
+              data: x
+            },
+            yAxis: {
+              type: 'value'
+            },
             series: [
               {
-                name: '直接访问',
-                type: 'bar',
-                barWidth: '60%',
-                data: value,
-
-                itemStyle: {
-                  //通常情况下：
+                name: '数据收益',
+                type: 'line',
+                smooth: true,
+                stack: '总量',
+                data: data.y,
+                lineStyle: {
                   normal: {
-                    //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
-                    color: function (params) {
-                      var colorList = ['#9013FE', '#0079FE', '#FF8F00', '#41E0FC ', '#B8E986', '#8C99AD ', '#FB745B', '#53237E', '#F6D707', '#38579A','#B8E986', '#8C99AD ', '#FB745B', '#53237E', '#F6D707', '#38579A','#B8E986', '#8C99AD ', '#FB745B', '#53237E', '#F6D707', '#38579A','#B8E986', '#8C99AD ', '#FB745B', '#53237E', '#F6D707', '#38579A']; //每根柱子的颜色
-                      return colorList[params.dataIndex];
-                    }
-                  },
-                  //鼠标悬停时：
-                  emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    color: '#9013FE'
                   }
                 }
-              }
+              },
             ]
-          }
+          };
           myChart.setOption(option);
         }
       }).catch((err) => {
@@ -461,163 +415,137 @@ export default {
     },
     // 周
     drawLine () {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("myChart"));
-      // 绘制图表
-      let option = {
-        color: ['#22314F'],
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-          }
-        },
-        grid: {
-          top: '8%',
-          left: '3%',
-          right: '4%',
-          bottom: '0',
-          containLabel: true
-        },
-        xAxis: [
-          {
-            type: 'value',
-            axisLabel: {
-              interval: 0,
-              formatter: function (params) {
-                console.log(params)
-                var newParamsName = "";
-                var paramsNameNumber = params.length;
-                var provideNumber = 8; //一行显示几个字
-                var rowNumber = Math.ceil(paramsNameNumber / provideNumber);
-                if (paramsNameNumber > provideNumber) {
-                  for (var p = 0; p < rowNumber; p++) {
-                    var tempStr = "";
-                    var start = p * provideNumber;
-                    var end = start + provideNumber;
-                    if (p == rowNumber - 1) {
-                      tempStr = params.substring(start, paramsNameNumber);
-                    } else {
-                      tempStr = params.substring(start, end) + "\n";
-                    }
-                    newParamsName += tempStr;
+      this.$http.get(`pc/merchant/authenticRight`, {
+        params: {
+          type: 'week',
+        }
+      }).then(res => {
+        var { code, data } = res.data
+        if (code === 1000) {
+          // console.log(data)
+          let x = []
+          data.x.forEach(item => {
+            x.push(item)
+          })
+          let myChart = this.$echarts.init(document.getElementById("myChart"));
+          // 绘制图表
+          let option = option = {
+            title: {
+              text: '本周数据确权统计'
+            },
+            tooltip: {
+              trigger: 'axis'
+            },
+            color: ['#9013FE', '#3B7CFF'],
+            legend: {
+              data: ['数据收益', '任务收益']
+            },
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true
+            },
+            toolbox: {
+              feature: {
+                saveAsImage: {}
+              }
+            },
+            xAxis: {
+              type: 'category',
+              boundaryGap: false,
+              data: x
+            },
+            yAxis: {
+              type: 'value'
+            },
+            series: [
+              {
+                name: '数据收益',
+                type: 'line',
+                smooth: true,
+                stack: '总量',
+                data: data.y,
+                lineStyle: {
+                  normal: {
+                    color: '#9013FE'
                   }
-                } else {
-                  newParamsName = params;
-                }
-                return newParamsName;
-              }
-            },
-            axisLine: {
-              lineStyle: {
-                color: '#58afed', // X轴及其文字颜色
-              }
-            }
-          }
-        ],
-        yAxis: [
-          {
-            type: 'category',
-            data: this.workname,
-            axisTick: {
-              alignWithLabel: true
-            },
-            axisLine: {
-              lineStyle: {
-                color: '#58afed', // X轴及其文字颜色
-              }
-            }
-          }
-        ],
-        series: [
-          {
-            name: '直接访问',
-            type: 'bar',
-            barWidth: '60%',
-            data: this.worknum,
-
-            itemStyle: {
-              //通常情况下：
-              normal: {
-                //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
-                color: function (params) {
-                  var colorList = ['#9013FE', '#0079FE', '#FF8F00', '#41E0FC ', '#B8E986', '#8C99AD ', '#FB745B', '#53237E', '#F6D707', '#38579A']; //每根柱子的颜色
-                  return colorList[params.dataIndex];
                 }
               },
-              //鼠标悬停时：
-              emphasis: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
-            }
-          }
-        ]
-      }
-      myChart.setOption(option);
+            ]
+          };
+          myChart.setOption(option);
+        }
+      }).catch((err) => {
+        console.log('错误信息' + err)
+      })
     },
     // 月
     drawLine3 () {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("myChart3"));
-      // 绘制图表
-      let option = {
-        title: {
-          text: '本月数据确权量'
-        },
-        tooltip: {
-          trigger: 'axis'
-        },
-        color: ['#9013FE', '#3B7CFF'],
-        legend: {
-          data: ['数据采集']
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [
-          {
-            name: '数据采集',
-            type: 'line',
-            stack: '总量',
-            data: [120, 132, 101, 134, 90, 230, 210],
-            lineStyle: {
-              normal: {
-                color: '#9013FE'
+      this.$http.get(`pc/merchant/authenticRight`, {
+        params: {
+          type: 'month',
+        }
+      }).then(res => {
+        var { code, data } = res.data
+        if (code === 1000) {
+          // console.log(data)
+          let x = []
+          data.x.forEach(item => {
+            x.push(item)
+          })
+          let myChart = this.$echarts.init(document.getElementById("myChart3"));
+          // 绘制图表
+          let option = option = {
+            title: {
+              text: '本月数据确权统计'
+            },
+            tooltip: {
+              trigger: 'axis'
+            },
+            color: ['#9013FE', '#3B7CFF'],
+            legend: {
+              data: ['数据收益', '任务收益']
+            },
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true
+            },
+            toolbox: {
+              feature: {
+                saveAsImage: {}
               }
-            }
-          },
-          // {
-          //   name: '微信',
-          //   type: 'line',
-          //   stack: '总量',
-          //   data: [220, 182, 191, 234, 290, 330, 310],
-          //   lineStyle: {
-          //     normal: {
-          //       color: '#3B7CFF'
-          //     }
-          //   }
-          // }
-        ]
-      };
-      myChart.setOption(option);
+            },
+            xAxis: {
+              type: 'category',
+              boundaryGap: false,
+              data: x
+            },
+            yAxis: {
+              type: 'value'
+            },
+            series: [
+              {
+                name: '数据收益',
+                type: 'line',
+                smooth: true,
+                stack: '总量',
+                data: data.y,
+                lineStyle: {
+                  normal: {
+                    color: '#9013FE'
+                  }
+                }
+              },
+            ]
+          };
+          myChart.setOption(option);
+        }
+      }).catch((err) => {
+        console.log('错误信息' + err)
+      })
     },
     // 搜索
     drawLine4 () {

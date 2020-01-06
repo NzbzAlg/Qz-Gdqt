@@ -131,9 +131,7 @@ export default {
         this.$message.error("输入的验证码不正确");
         return;
       }
-      this.$http
-        .post(`pc/user/login`, { username: this.input, password: md })
-        .then(res => {
+        this.$http.post(`pc/user/login`, { username: this.input, password: md }).then(res => {
           var { code, data } = res.data;
           if (code === 1000) {
             this.Message = data.Message;
@@ -142,21 +140,7 @@ export default {
               window.sessionStorage.setItem("token", token);
               this.$store.commit("myval1", this.btname);
               this.$store.commit("updateUserInfo", data);
-              let arr = [
-                "0",
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12"
-              ];
+              let arr = ["0","1","2","3","4","5","6","7","8","9","10","11","12"];
               window.sessionStorage.setItem("data", JSON.stringify(arr));
               // console.log(JSON.stringify(arr))
               this.$router.push("./index/indexx.vue");
@@ -165,21 +149,7 @@ export default {
               window.sessionStorage.setItem("token", token);
               this.$store.commit("myval1", this.btname);
               this.$store.commit("updateUserInfo", data);
-              let arr = [
-                "0",
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12"
-              ];
+              let arr = ["0","1","2","3","4","5","6","7","8","9","10","11","12"];
               window.sessionStorage.setItem("data", JSON.stringify(arr));
               // console.log(JSON.stringify(arr))
               this.$router.push("./index/indexx.vue");

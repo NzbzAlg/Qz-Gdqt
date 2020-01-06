@@ -1995,6 +1995,21 @@ export default {
     },
     // 计算金额
     cipher() {
+      // if(this.riqi.length === 0){
+      //   if (this.ysjl1 < this.buyAmount) {
+      //     this.$message.error("订购数量大于源数据量,请重新输入");
+      //     this.refer = true;
+      //   } else if (this.buyAmount <= 0) {
+      //     this.$message.error("输入有误,请重新输入");
+      //     this.refer = true;
+      //   } else {
+      //     this.dgmoney = Number(this.buyAmount) * this.dataPrice;
+      //     this.refer = false;
+      //   }
+      // }else if(this.riqi < this.buyAmount){
+      //   this.$message.error("订购数量大于日期数量,请重新输入");
+      //   this.refer = true;
+      // }
       if (this.ysjl1 < this.buyAmount) {
         this.$message.error("订购数量大于源数据量,请重新输入");
         this.refer = true;
@@ -2002,7 +2017,7 @@ export default {
         this.$message.error("输入有误,请重新输入");
         this.refer = true;
       } else if (this.riqi < this.buyAmount) {
-        this.$message.error("订购数量大于日期数量,请重新输入");
+        this.$message.error("需要选择日期购买数据");
         this.refer = true;
       } else {
         this.dgmoney = Number(this.buyAmount) * this.dataPrice;

@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div>
     <div :class="$style.f_table">
       <p>下级终端设备</p>
       <div :class="$style.f_row">
@@ -12,11 +12,7 @@
       <!-- 全部 -->
       <div v-show="xz1===true">
         <div :class="$style.f_bgnr">
-          <el-table
-            :data="alltableData"
-            border
-            style="width: 100%"
-          >
+          <el-table :data="alltableData" border style="width: 100%">
             <el-table-column type="index" align="center" label="序号" width="50"></el-table-column>
             <el-table-column sortable align="center" label="终端编号" width="180">
               <template slot-scope="scope">
@@ -64,7 +60,10 @@
             </el-table-column>
             <el-table-column align="center" label="位置信息">
               <template slot-scope="scope">
-                <span @click="place(scope.row)" :class="$style.f_ycsj">{{scope.row.addressname}}</span>
+                <span
+                  @click="place(scope.row)"
+                  :class="$style.f_ycsj"
+                >{{scope.row.formatted_address}}</span>
               </template>
             </el-table-column>
             <el-table-column prop="status" align="center" label="操作">
@@ -81,11 +80,7 @@
       <!-- 上传中 -->
       <div v-show="xz3===true">
         <div :class="$style.f_bgnr">
-          <el-table
-            :data="alltableData"
-            border
-            style="width: 100%"
-          >
+          <el-table :data="alltableData" border style="width: 100%">
             <el-table-column type="index" align="center" label="序号" width="50"></el-table-column>
             <el-table-column sortable align="center" label="终端编号" width="180">
               <template slot-scope="scope">
@@ -98,7 +93,7 @@
                 <span v-if="scope.row.groupName===''">未分组</span>
               </template>
             </el-table-column>
-             <el-table-column sortable align="center" label="客户名称" width="180">
+            <el-table-column sortable align="center" label="客户名称" width="180">
               <template slot-scope="scope">
                 <span>{{scope.row.miName}}</span>
               </template>
@@ -133,7 +128,10 @@
             </el-table-column>
             <el-table-column align="center" label="位置信息">
               <template slot-scope="scope">
-                <span @click="place(scope.row)" :class="$style.f_ycsj">{{scope.row.addressname}}</span>
+                <span
+                  @click="place(scope.row)"
+                  :class="$style.f_ycsj"
+                >{{scope.row.formatted_address}}</span>
               </template>
             </el-table-column>
             <el-table-column prop="status" align="center" label="操作">
@@ -150,11 +148,7 @@
       <!-- 待采集 -->
       <div v-show="xz5===true">
         <div :class="$style.f_bgnr">
-          <el-table
-            :data="alltableData"
-            border
-            style="width: 100%"
-          >
+          <el-table :data="alltableData" border style="width: 100%">
             <el-table-column type="index" align="center" label="序号" width="50"></el-table-column>
             <el-table-column sortable align="center" label="终端编号" width="180">
               <template slot-scope="scope">
@@ -167,7 +161,7 @@
                 <span v-if="scope.row.groupName===''">未分组</span>
               </template>
             </el-table-column>
-             <el-table-column sortable align="center" label="客户名称" width="180">
+            <el-table-column sortable align="center" label="客户名称" width="180">
               <template slot-scope="scope">
                 <span>{{scope.row.miName}}</span>
               </template>
@@ -202,7 +196,10 @@
             </el-table-column>
             <el-table-column align="center" label="位置信息">
               <template slot-scope="scope">
-                <span @click="place(scope.row)" :class="$style.f_ycsj">{{scope.row.addressname}}</span>
+                <span
+                  @click="place(scope.row)"
+                  :class="$style.f_ycsj"
+                >{{scope.row.formatted_address}}</span>
               </template>
             </el-table-column>
             <el-table-column prop="status" align="center" label="操作">
@@ -219,11 +216,7 @@
       <!-- 已联网 -->
       <div v-show="xz7===true">
         <div :class="$style.f_bgnr">
-          <el-table
-            :data="alltableData"
-            border
-            style="width: 100%"
-          >
+          <el-table :data="alltableData" border style="width: 100%">
             <el-table-column type="index" align="center" label="序号" width="50"></el-table-column>
             <el-table-column sortable align="center" label="终端编号" width="180">
               <template slot-scope="scope">
@@ -236,7 +229,7 @@
                 <span v-if="scope.row.groupName===''">未分组</span>
               </template>
             </el-table-column>
-             <el-table-column sortable align="center" label="客户名称" width="180">
+            <el-table-column sortable align="center" label="客户名称" width="180">
               <template slot-scope="scope">
                 <span>{{scope.row.miName}}</span>
               </template>
@@ -271,7 +264,10 @@
             </el-table-column>
             <el-table-column align="center" label="位置信息">
               <template slot-scope="scope">
-                <span @click="place(scope.row)" :class="$style.f_ycsj">{{scope.row.addressname}}</span>
+                <span
+                  @click="place(scope.row)"
+                  :class="$style.f_ycsj"
+                >{{scope.row.formatted_address}}</span>
               </template>
             </el-table-column>
             <el-table-column prop="status" align="center" label="操作">
@@ -297,35 +293,35 @@
           :total="total"
         ></el-pagination>
       </div>
-      <div class="f_dg">
-        <el-dialog v-if="hackReset" title="场景地点" :visible.sync="ikon" width="30%" :before-close="gb">
-          <baidu-map class="map" style="height:300px" :center="center" :zoom="18">
-            <bm-marker :position="center" :dragging="true" @click="infoWindowOpen">
-              <bm-info-window
-                :show="show"
-                @close="infoWindowClose"
-                @open="infoWindowOpen"
-              >{{addressname}}</bm-info-window>
-            </bm-marker>
-          </baidu-map>
-        </el-dialog>
-      </div>
+      <el-dialog
+        title="位置信息"
+        :visible.sync="map"
+        width="60%"
+        class="f_zbxx"
+        :before-close="handleClose1"
+      >
+        <gaode :row="item" />
+      </el-dialog>
     </div>
     <div :class="$style.f_jz">
-      <footerl/>
+      <footerl />
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
-import footerl from '../footer/footerl'
+import footerl from "../footer/footerl";
+import gaode from "../map/gaode";
 export default {
   components: {
-      footerl
+    footerl,
+    gaode
   },
-  data(){
-    return{
-      textarea2: '',
+  data() {
+    return {
+      item: {},
+      map: false,
+      textarea2: "",
       num: 2000,
       num1: 500,
       num2: 500,
@@ -334,8 +330,8 @@ export default {
       num5: 100,
       num6: 0,
       num7: 0,
-      input: '',
-      value1: '',
+      input: "",
+      value1: "",
       xz: false,
       xz1: true,
       xz2: true,
@@ -354,826 +350,669 @@ export default {
       value3: [],
       value2: [],
       options: [],
-      age: '',
-      nl: '',
-      zy: '',
-      gzdd: '',
-      pt: '',
+      age: "",
+      nl: "",
+      zy: "",
+      gzdd: "",
+      pt: "",
       ikon: false,
-      input1: '',
-      jzdd: '',
+      input1: "",
+      jzdd: "",
       ysjl: 1000,
-      moeny: '1000VKT',
-      textarea2: '',
+      moeny: "1000VKT",
+      textarea2: "",
       dgdata: false,
       dgmoney: null,
-      btname: '任务详情',
-      btmatter: '数据回购任务',
+      btname: "任务详情",
+      btmatter: "数据回购任务",
       bangding: false,
       jiebang: false,
-      jbname: '',
+      jbname: "",
       total: null,
       sizes: 10,
-      formatted_address: '',
+      formatted_address: "",
       Grouping: {},
       center: {},
       show: true,
-      addressname: '',
-      row:{},
-      index:'',
-      hackReset:true
-    }
+      formatted_address: "",
+      row: {},
+      index: "",
+      hackReset: true
+    };
   },
-  mounted(){
-    this.qb()
+  mounted() {
+    this.qb();
   },
-  methods:{
-    qb () {
-      this.xz1 = true
-      this.xz = false
-      this.xz2 = true
-      this.xz3 = false
-      this.xz4 = true
-      this.xz5 = false
-      this.xz6 = true
-      this.xz7 = false
-      this.xz8 = true
-      this.xz9 = false
-      this.currentPage4 = 1
-      this.$http.get(`pc/merchant/followerDeviceList`, {        
+  methods: {
+    handleClose1() {
+      this.gaocenter = [0, 0];
+      this.formatted_address = "";
+      this.map = false;
+    },
+
+    getdata(item) {
+      let that = this;
+      that.center = [0, 0]; //初始化时候的赋值
+      return new Promise(function(resolve, reject) {
+        if (item.lng) {
+          let locations = item.lng + "," + item.lat;
+          that
+            .$jsonp(
+              "https://restapi.amap.com/v3/assistant/coordinate/convert?locations=" +
+                item.lng +
+                "," +
+                item.lat +
+                "&coordsys=gps&output=json&key=7b2709273be94bf7782a65c261b84863"
+            )
+            .then(function(res) {
+              // console.log(res)
+              locations = res.locations;
+              item.lng = locations.split(",")[0];
+              item.lat = locations.split(",")[1];
+              that.center = [item.lng, item.lat];
+              that
+                .$jsonp(
+                  "https://restapi.amap.com/v3/geocode/regeo?output=json&location=" +
+                    locations +
+                    "&key=7b2709273be94bf7782a65c261b84863&radius=1000&extensions=all"
+                )
+                .then(function(res) {
+                  // console.log(res);
+                  let d = res.regeocode;
+                  that.address = "";
+                  // console.log(d.formatted_address);
+                  if (d) {
+                    that.address = d.formatted_address; //点击选择新地址并获取地址的名称
+                  }
+                  resolve({
+                    lng: item.lng,
+                    lat: item.lat,
+                    formatted_address: that.address
+                  });
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+        } else {
+          console.log("error");
+        }
+      });
+    },
+    async generateData(item) {
+      let that = this;
+      let _result = await that.getdata(item);
+      return _result;
+    },
+    qb() {
+      let that = this;
+      this.xz1 = true;
+      this.xz = false;
+      this.xz2 = true;
+      this.xz3 = false;
+      this.xz4 = true;
+      this.xz5 = false;
+      this.xz6 = true;
+      this.xz7 = false;
+      this.xz8 = true;
+      this.xz9 = false;
+      this.currentPage4 = 1;
+      this.$http
+        .get(`pc/device/list`, {
           params: {
             size: this.sizes,
-            type: 0,
-          }      
-        }).then(res => {
-        var { code, data } = res.data
-        if (code === 1000) {
-          this.alltableData = []
-          this.total = data.total
-          data.content.forEach(item => {
-            let lng = item.lng
-            let lat = item.lat
-            if(lng!==null){
-              this.$jsonp(`http://api.map.baidu.com/geoconv/v1/?coords=${lng},${lat}&from=1&to=5&ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS`).then(res => {
-                console.log(res.result[0])
-                let reslat = res.result[0].y
-                let reslng = res.result[0].x
-                this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${reslat},${reslng}&output=json&pois=1 `).then(res => {
-                  // console.log(res.result)
-                  this.formatted_address = res.result.formatted_address
-                  this.Grouping = {
-                    addressname: this.formatted_address,
-                    lng: reslng,
-                    lat: reslat,
-                    code: item.code,
-                    dataCount: item.dataCount,
-                    fixedCode: item.fixedCode,
-                    fixedName: item.fixedName,
-                    fixedStatus: item.fixedStatus,
-                    taskId: item.taskId,
-                    groupName: item.groupName,
-                    gtId: item.gtId,
-                    id: item.id,
-                    isNet: item.isNet,
-                    isTaskRange: item.isTaskRange,
-                    isTaskTime: item.isTaskTime,
-                    mac_num: item.mac_num,
-                    merchantId: item.merchantId,
-                    status: item.status,
-                    taskCode: item.taskCode,
-                    taskName: item.taskName,
-                    miName:item.miName
-                  }
-                  this.alltableData.push(this.Grouping)
-                }).catch((err) => {
-                  console.log('错误信息' + err)
-                })
-              }).catch(err => {
-                console.log('错误信息' + err)
-              })
-            }else {
-              // console.log(item)
-              this.formatted_address = '暂无'
-              this.Grouping = {
-                addressname: this.formatted_address,
-                lat: item.lat,
-                lng: item.lng,
-                code: item.code,
-                dataCount: item.dataCount,
-                fixedCode: item.fixedCode,
-                fixedName: item.fixedName,
-                fixedStatus: item.fixedStatus,
-                taskId: item.taskId,
-                groupName: item.groupName,
-                gtId: item.gtId,
-                id: item.id,
-                isNet: item.isNet,
-                isTaskRange: item.isTaskRange,
-                isTaskTime: item.isTaskTime,
-                mac_num: item.mac_num,
-                merchantId: item.merchantId,
-                status: item.status,
-                taskCode: item.taskCode,
-                taskName: item.taskName,
-                miName:item.miName
+            type: 0
+          }
+        })
+        .then(res => {
+          var { code, data } = res.data;
+          if (code === 1000) {
+            this.alltableData = [];
+            this.total = data.total;
+            data.content.forEach(item => {
+              if (item.lng) {
+                that.generateData(item).then(function(result) {
+                  // console.log(result);
+                  item.formatted_address = result.formatted_address;
+                  item.lng = result.lng;
+                  item.lat = result.lat;
+                  // console.log(item.formatted_address)
+                  that.alltableData.push(item);
+                });
+              } else {
+                that.alltableData.push(item);
               }
-              this.alltableData.push(this.Grouping)
-            }
-          })
-        } else if (code == 2001) {
-          this.$message.error(res.data.message);
-          window.sessionStorage.clear();
-          window.localStorage.clear();
-          this.$router.push('/')
-        } else {
-          this.$message.error(res.data.message);
-        }
-      }).catch((err) => {
-        console.log('错误信息' + err)
-      })
+            });
+          } else if (code == 2001) {
+            this.$message.error(res.data.message);
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            this.$router.push("/");
+          } else {
+            this.$message.error(res.data.message);
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
     },
     // 上传中
-    ywc () {
-      this.xz1 = false
-      this.xz = true
-      this.xz2 = false
-      this.xz3 = true
-      this.xz4 = true
-      this.xz5 = false
-      this.xz6 = true
-      this.xz7 = false
-      this.xz8 = true
-      this.xz9 = false
-      this.currentPage4 = 1
-      this.$http.get(`pc/merchant/followerDeviceList`, {        
+    ywc() {
+      let that = this;
+      this.xz1 = false;
+      this.xz = true;
+      this.xz2 = false;
+      this.xz3 = true;
+      this.xz4 = true;
+      this.xz5 = false;
+      this.xz6 = true;
+      this.xz7 = false;
+      this.xz8 = true;
+      this.xz9 = false;
+      this.currentPage4 = 1;
+      this.$http
+        .get(`pc/device/list`, {
           params: {
             size: this.sizes,
-            type: 1,
-          }      
-        }).then(res => {
-        var { code, data } = res.data
-        if (code === 1000) {
-           this.alltableData = []
-           this.total = data.total
-          data.content.forEach(item => {
-             let lng = item.lng
-            let lat = item.lat
-            if(lng!==null){
-              this.$jsonp(`http://api.map.baidu.com/geoconv/v1/?coords=${lng},${lat}&from=1&to=5&ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS`).then(res => {
-                console.log(res.result[0])
-                let reslat = res.result[0].y
-                let reslng = res.result[0].x
-                this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${reslat},${reslng}&output=json&pois=1 `).then(res => {
-                  // console.log(res.result)
-                   this.formatted_address = res.result.formatted_address
-              this.Grouping = {
-                addressname: this.formatted_address,
-                lng: reslng,
-                lat: reslat,
-                code: item.code,
-                dataCount: item.dataCount,
-                fixedCode: item.fixedCode,
-                fixedName: item.fixedName,
-                fixedStatus: item.fixedStatus,
-                taskId: item.taskId,
-                groupName: item.groupName,
-                gtId: item.gtId,
-                id: item.id,
-                isNet: item.isNet,
-                isTaskRange: item.isTaskRange,
-                isTaskTime: item.isTaskTime,
-                mac_num: item.mac_num,
-                merchantId: item.merchantId,
-                status: item.status,
-                taskCode: item.taskCode,
-                taskName: item.taskName,
-                miName:item.miName
+            type: 1
+          }
+        })
+        .then(res => {
+          var { code, data } = res.data;
+          if (code === 1000) {
+            this.alltableData = [];
+            this.total = data.total;
+            data.content.forEach(item => {
+              if (item.lng) {
+                that.generateData(item).then(function(result) {
+                  // console.log(result);
+                  item.formatted_address = result.formatted_address;
+                  item.lng = result.lng;
+                  item.lat = result.lat;
+                  // console.log(item.formatted_address)
+                  that.alltableData.push(item);
+                });
+              } else {
+                that.alltableData.push(item);
               }
-              this.alltableData.push(this.Grouping)
-                }).catch((err) => {
-                  console.log('错误信息' + err)
-                })
-              }).catch(err => {
-                console.log('错误信息' + err)
-              })
-            }else {
-              // console.log(item)
-              this.formatted_address = '暂无'
-              this.Grouping = {
-                addressname: this.formatted_address,
-                lat: item.lat,
-                lng: item.lng,
-                code: item.code,
-                dataCount: item.dataCount,
-                fixedCode: item.fixedCode,
-                fixedName: item.fixedName,
-                fixedStatus: item.fixedStatus,
-                taskId: item.taskId,
-                groupName: item.groupName,
-                gtId: item.gtId,
-                id: item.id,
-                isNet: item.isNet,
-                isTaskRange: item.isTaskRange,
-                isTaskTime: item.isTaskTime,
-                mac_num: item.mac_num,
-                merchantId: item.merchantId,
-                status: item.status,
-                taskCode: item.taskCode,
-                taskName: item.taskName,
-                miName:item.miName
-              }
-              this.alltableData.push(this.Grouping)
-            }
-          })
-        } else if (code == 2001) {
-          this.$message.error(res.data.message);
-          window.sessionStorage.clear();
-          window.localStorage.clear();
-          this.$router.push('/')
-        } else {
-          this.$message.error(res.data.message);
-        }
-      }).catch((err) => {
-        console.log('错误信息' + err)
-      })
+            });
+          } else if (code == 2001) {
+            this.$message.error(res.data.message);
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            this.$router.push("/");
+          } else {
+            this.$message.error(res.data.message);
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
     },
-    // 待采集
-    wwc () {
-      this.xz1 = false
-      this.xz = true
-      this.xz2 = true
-      this.xz3 = false
-      this.xz4 = false
-      this.xz5 = true
-      this.xz6 = true
-      this.xz7 = false
-      this.xz8 = true
-      this.xz9 = false
-      this.currentPage4 = 1
-      this.$http.get(`pc/merchant/followerDeviceList`, {        
+    // 待机中
+    wwc() {
+      let that = this;
+      this.xz1 = false;
+      this.xz = true;
+      this.xz2 = true;
+      this.xz3 = false;
+      this.xz4 = false;
+      this.xz5 = true;
+      this.xz6 = true;
+      this.xz7 = false;
+      this.xz8 = true;
+      this.xz9 = false;
+      this.currentPage4 = 1;
+      this.$http
+        .get(`pc/device/list`, {
           params: {
             size: this.sizes,
             type: 2
-          }      
-        }).then(res => {
-        var { code, data } = res.data
-        if (code === 1000) {
-           this.alltableData = []
-           this.total = data.total
-          data.content.forEach(item => {
-             let lng = item.lng
-            let lat = item.lat
-            if(lng!==null){
-              this.$jsonp(`http://api.map.baidu.com/geoconv/v1/?coords=${lng},${lat}&from=1&to=5&ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS`).then(res => {
-                console.log(res.result[0])
-                let reslat = res.result[0].y
-                let reslng = res.result[0].x
-                this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${reslat},${reslng}&output=json&pois=1 `).then(res => {
-                  // console.log(res.result)
-                   this.formatted_address = res.result.formatted_address
-              this.Grouping = {
-                addressname: this.formatted_address,
-                lng: reslng,
-                lat: reslat,
-                code: item.code,
-                dataCount: item.dataCount,
-                fixedCode: item.fixedCode,
-                fixedName: item.fixedName,
-                fixedStatus: item.fixedStatus,
-                taskId: item.taskId,
-                groupName: item.groupName,
-                gtId: item.gtId,
-                id: item.id,
-                isNet: item.isNet,
-                isTaskRange: item.isTaskRange,
-                isTaskTime: item.isTaskTime,
-                mac_num: item.mac_num,
-                merchantId: item.merchantId,
-                status: item.status,
-                taskCode: item.taskCode,
-                taskName: item.taskName,
-                miName:item.miName
+          }
+        })
+        .then(res => {
+          var { code, data } = res.data;
+          if (code === 1000) {
+            this.alltableData = [];
+            this.total = data.total;
+            data.content.forEach(item => {
+              if (item.lng) {
+                that.generateData(item).then(function(result) {
+                  // console.log(result);
+                  item.formatted_address = result.formatted_address;
+                  item.lng = result.lng;
+                  item.lat = result.lat;
+                  // console.log(item.formatted_address)
+                  that.alltableData.push(item);
+                });
+              } else {
+                that.alltableData.push(item);
               }
-              this.alltableData.push(this.Grouping)
-                }).catch((err) => {
-                  console.log('错误信息' + err)
-                })
-              }).catch(err => {
-                console.log('错误信息' + err)
-              })
-            }else {
-              // console.log(item)
-              this.formatted_address = '暂无'
-              this.Grouping = {
-                addressname: this.formatted_address,
-                lat: item.lat,
-                lng: item.lng,
-                code: item.code,
-                dataCount: item.dataCount,
-                fixedCode: item.fixedCode,
-                fixedName: item.fixedName,
-                fixedStatus: item.fixedStatus,
-                taskId: item.taskId,
-                groupName: item.groupName,
-                gtId: item.gtId,
-                id: item.id,
-                isNet: item.isNet,
-                isTaskRange: item.isTaskRange,
-                isTaskTime: item.isTaskTime,
-                mac_num: item.mac_num,
-                merchantId: item.merchantId,
-                status: item.status,
-                taskCode: item.taskCode,
-                taskName: item.taskName,
-                miName:item.miName
-              }
-              this.alltableData.push(this.Grouping)
-            }
-          })
-        } else if (code == 2001) {
-          this.$message.error(res.data.message);
-          window.sessionStorage.clear();
-          window.localStorage.clear();
-          this.$router.push('/')
-        } else {
-          this.$message.error(res.data.message);
-        }
-      }).catch((err) => {
-        console.log('错误信息' + err)
-      })
+            });
+          } else if (code == 2001) {
+            this.$message.error(res.data.message);
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            this.$router.push("/");
+          } else {
+            this.$message.error(res.data.message);
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
     },
     // 已联网
-    zzrw () {
-      this.xz1 = false
-      this.xz = true
-      this.xz2 = true
-      this.xz3 = false
-      this.xz4 = true
-      this.xz5 = false
-      this.xz6 = false
-      this.xz7 = true
-      this.xz8 = true
-      this.xz9 = false
-      this.currentPage4 = 1
-      this.$http.get(`pc/merchant/followerDeviceList`, {        
+    zzrw() {
+      let that = this;
+      this.xz1 = false;
+      this.xz = true;
+      this.xz2 = true;
+      this.xz3 = false;
+      this.xz4 = true;
+      this.xz5 = false;
+      this.xz6 = false;
+      this.xz7 = true;
+      this.xz8 = true;
+      this.xz9 = false;
+      this.currentPage4 = 1;
+      this.$http
+        .get(`pc/device/list`, {
           params: {
             size: this.sizes,
             type: 3
-          }      
-        }).then(res => {
-        var { code, data } = res.data
-        if (code === 1000) {
-           this.alltableData = []
-           this.total = data.total
-          data.content.forEach(item => {
-             let lng = item.lng
-            let lat = item.lat
-            if(lng!==null){
-              this.$jsonp(`http://api.map.baidu.com/geoconv/v1/?coords=${lng},${lat}&from=1&to=5&ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS`).then(res => {
-                console.log(res.result[0])
-                let reslat = res.result[0].y
-                let reslng = res.result[0].x
-                this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${reslat},${reslng}&output=json&pois=1 `).then(res => {
-                  // console.log(res.result)
-                   this.formatted_address = res.result.formatted_address
-              this.Grouping = {
-                addressname: this.formatted_address,
-                lng: reslng,
-                lat: reslat,
-                code: item.code,
-                dataCount: item.dataCount,
-                fixedCode: item.fixedCode,
-                fixedName: item.fixedName,
-                fixedStatus: item.fixedStatus,
-                taskId: item.taskId,
-                groupName: item.groupName,
-                gtId: item.gtId,
-                id: item.id,
-                isNet: item.isNet,
-                isTaskRange: item.isTaskRange,
-                isTaskTime: item.isTaskTime,
-                mac_num: item.mac_num,
-                merchantId: item.merchantId,
-                status: item.status,
-                taskCode: item.taskCode,
-                taskName: item.taskName,
-                miName:item.miName
+          }
+        })
+        .then(res => {
+          var { code, data } = res.data;
+          if (code === 1000) {
+            this.alltableData = [];
+            this.total = data.total;
+            data.content.forEach(item => {
+              if (item.lng) {
+                that.generateData(item).then(function(result) {
+                  // console.log(result);
+                  item.formatted_address = result.formatted_address;
+                  item.lng = result.lng;
+                  item.lat = result.lat;
+                  // console.log(item.formatted_address)
+                  that.alltableData.push(item);
+                });
+              } else {
+                that.alltableData.push(item);
               }
-              this.alltableData.push(this.Grouping)
-                }).catch((err) => {
-                  console.log('错误信息' + err)
-                })
-              }).catch(err => {
-                console.log('错误信息' + err)
-              })
-            }else {
-              // console.log(item)
-              this.formatted_address = '暂无'
-              this.Grouping = {
-                addressname: this.formatted_address,
-                lat: item.lat,
-                lng: item.lng,
-                code: item.code,
-                dataCount: item.dataCount,
-                fixedCode: item.fixedCode,
-                fixedName: item.fixedName,
-                fixedStatus: item.fixedStatus,
-                taskId: item.taskId,
-                groupName: item.groupName,
-                gtId: item.gtId,
-                id: item.id,
-                isNet: item.isNet,
-                isTaskRange: item.isTaskRange,
-                isTaskTime: item.isTaskTime,
-                mac_num: item.mac_num,
-                merchantId: item.merchantId,
-                status: item.status,
-                taskCode: item.taskCode,
-                taskName: item.taskName,
-                miName:item.miName
-              }
-              this.alltableData.push(this.Grouping)
+            });
+          } else if (code == 2001) {
+            this.$message.error(res.data.message);
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            this.$router.push("/");
+          } else {
+            this.$message.error(res.data.message);
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
+    },
+    handleSizeChange(val) {
+      let that = this;
+      this.sizes = val;
+      if (this.xz1 === true) {
+        this.$http
+          .get(`pc/device/list`, {
+            params: {
+              size: val,
+              type: 0
             }
           })
-        } else if (code == 2001) {
-          this.$message.error(res.data.message);
-          window.sessionStorage.clear();
-          window.localStorage.clear();
-          this.$router.push('/')
-        } else {
-          this.$message.error(res.data.message);
-        }
-      }).catch((err) => {
-        console.log('错误信息' + err)
-      })
-    },
-    handleSizeChange (val) {
-      this.sizes = val
-      if(this.xz1 === true){
-        this.$http.get(`pc/merchant/followerDeviceList`, {        
-          params: {
-            size: val,
-            type:0
-          }      
-        }).then(res => {
-        var { code, data } = res.data
-        if (code === 1000) {
-          this.alltableData = []
-          this.total = data.total
-          data.content.forEach(item => {
-            let lng = item.lng
-            let lat = item.lat
-            if(lng!==null){
-              this.$jsonp(`http://api.map.baidu.com/geoconv/v1/?coords=${lng},${lat}&from=1&to=5&ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS`).then(res => {
-                console.log(res.result[0])
-                let reslat = res.result[0].y
-                let reslng = res.result[0].x
-                this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${reslat},${reslng}&output=json&pois=1 `).then(res => {
-                  // console.log(res.result)
-                  this.formatted_address = res.result.formatted_address
-                  this.Grouping = {
-                    addressname: this.formatted_address,
-                    lng: reslng,
-                    lat: reslat,
-                    code: item.code,
-                    dataCount: item.dataCount,
-                    fixedCode: item.fixedCode,
-                    fixedName: item.fixedName,
-                    fixedStatus: item.fixedStatus,
-                    taskId: item.taskId,
-                    groupName: item.groupName,
-                    gtId: item.gtId,
-                    id: item.id,
-                    isNet: item.isNet,
-                    isTaskRange: item.isTaskRange,
-                    isTaskTime: item.isTaskTime,
-                    mac_num: item.mac_num,
-                    merchantId: item.merchantId,
-                    status: item.status,
-                    taskCode: item.taskCode,
-                    taskName: item.taskName,
-                    miName:item.miName
-                  }
-                  this.alltableData.push(this.Grouping)
-                }).catch((err) => {
-                  console.log('错误信息' + err)
-                })
-              }).catch(err => {
-                console.log('错误信息' + err)
-              })
-            }else{
-             this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${lng},${lat}&output=json&pois=1 `).then(res => {
-                this.formatted_address = res.result.formatted_address
-                this.Grouping = {
-                  addressname: this.formatted_address,
-                  lng: item.lng,
-                  lat: item.lat,
-                  code: item.code,
-                  dataCount: item.dataCount,
-                  fixedCode: item.fixedCode,
-                  fixedName: item.fixedName,
-                  fixedStatus: item.fixedStatus,
-                  taskId: item.taskId,
-                  groupName: item.groupName,
-                  gtId: item.gtId,
-                  id: item.id,
-                  isNet: item.isNet,
-                  isTaskRange: item.isTaskRange,
-                  isTaskTime: item.isTaskTime,
-                  mac_num: item.mac_num,
-                  merchantId: item.merchantId,
-                  status: item.status,
-                  taskCode: item.taskCode,
-                  taskName: item.taskName,
-                  miName:item.miName
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.alltableData = [];
+              this.total = data.total;
+              data.content.forEach(item => {
+                if (item.lng) {
+                  that.generateData(item).then(function(result) {
+                    // console.log(result);
+                    item.formatted_address = result.formatted_address;
+                    item.lng = result.lng;
+                    item.lat = result.lat;
+                    // console.log(item.formatted_address)
+                    that.alltableData.push(item);
+                  });
+                } else {
+                  that.alltableData.push(item);
                 }
-                this.alltableData.push(this.Grouping)
-              }).catch((err) => {
-                console.log('错误信息' + err)
-              })
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
             }
           })
-        } else if (code == 2001) {
-          this.$message.error(res.data.message);
-          window.sessionStorage.clear();
-          window.localStorage.clear();
-          this.$router.push('/')
-        } else {
-          this.$message.error(res.data.message);
-        }
-      }).catch((err) => {
-        console.log('错误信息' + err)
-      })
-      }else if(this.xz3 === true){
-        this.$http.get(`pc/merchant/followerDeviceList`, {
-          params: {
-            size: val,
-            type:1
-          }
-        }).then(res => {
-          var { code, data } = res.data
-          if (code === 1000) {
-            console.log(data)
-            this.alltableData = data.content
-            this.total = data.total
-          } else if (code == 2001) {
-            this.$message.error(res.data.message);
-            window.sessionStorage.clear();
-            window.localStorage.clear();
-            this.$router.push('/')
-          } else {
-            this.$message.error(res.data.message);
-          }
-        }).catch((err) => {
-          console.log('错误信息' + err)
-        })
-      }else if(this.xz5 === true){
-        this.$http.get(`pc/merchant/followerDeviceList`, {
-          params: {
-            size: val,
-            type:2
-          }
-        }).then(res => {
-          var { code, data } = res.data
-          if (code === 1000) {
-            console.log(data)
-            this.alltableData = data.content
-            this.total = data.total
-          } else if (code == 2001) {
-            this.$message.error(res.data.message);
-            window.sessionStorage.clear();
-            window.localStorage.clear();
-            this.$router.push('/')
-          } else {
-            this.$message.error(res.data.message);
-          }
-        }).catch((err) => {
-          console.log('错误信息' + err)
-        })
-      }else if(this.xz7 === true){
-        this.$http.get(`pc/merchant/followerDeviceList`, {
-          params: {
-            size: val,
-            type:3
-          }
-        }).then(res => {
-          var { code, data } = res.data
-          if (code === 1000) {
-            console.log(data)
-            this.alltableData = data.content
-            this.total = data.total
-          } else if (code == 2001) {
-            this.$message.error(res.data.message);
-            window.sessionStorage.clear();
-            window.localStorage.clear();
-            this.$router.push('/')
-          } else {
-            this.$message.error(res.data.message);
-          }
-        }).catch((err) => {
-          console.log('错误信息' + err)
-        })
-      }
-      
-    },
-    handleCurrentChange (val) {
-      this.pages = val
-      if(this.xz1 === true){
-         this.$http.get(`pc/merchant/followerDeviceList`, {
-          params: {
-            size: this.sizes,
-            page: val - 1,
-            type:0
-          }      
-        }).then(res => {
-        var { code, data } = res.data
-        if (code === 1000) {
-          this.alltableData = []
-          this.total = data.total
-          data.content.forEach(item => {
-            let lng = item.lng
-            let lat = item.lat
-            if(lng!==null){
-              this.$jsonp(`http://api.map.baidu.com/geoconv/v1/?coords=${lng},${lat}&from=1&to=5&ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS`).then(res => {
-                console.log(res.result[0])
-                let reslat = res.result[0].y
-                let reslng = res.result[0].x
-                this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${reslat},${reslng}&output=json&pois=1 `).then(res => {
-                  // console.log(res.result)
-                  this.formatted_address = res.result.formatted_address
-                  this.Grouping = {
-                    addressname: this.formatted_address,
-                    lng: reslng,
-                    lat: reslat,
-                    code: item.code,
-                    dataCount: item.dataCount,
-                    fixedCode: item.fixedCode,
-                    fixedName: item.fixedName,
-                    fixedStatus: item.fixedStatus,
-                    taskId: item.taskId,
-                    groupName: item.groupName,
-                    gtId: item.gtId,
-                    id: item.id,
-                    isNet: item.isNet,
-                    isTaskRange: item.isTaskRange,
-                    isTaskTime: item.isTaskTime,
-                    mac_num: item.mac_num,
-                    merchantId: item.merchantId,
-                    status: item.status,
-                    taskCode: item.taskCode,
-                    taskName: item.taskName,
-                    miName:item.miName
-                  }
-                  this.alltableData.push(this.Grouping)
-                }).catch((err) => {
-                  console.log('错误信息' + err)
-                })
-              }).catch(err => {
-                console.log('错误信息' + err)
-              })
-            }else{
-             this.$jsonp(`http://api.map.baidu.com/geocoder/v2/?ak=1IGwblSXzAV0yxzCq0ZGdYoixoreCQwS&callback=renderReverse&location=${lng},${lat}&output=json&pois=1 `).then(res => {
-                this.formatted_address = res.result.formatted_address
-                this.Grouping = {
-                  addressname: this.formatted_address,
-                  lng: item.lng,
-                  lat: item.lat,
-                  code: item.code,
-                  dataCount: item.dataCount,
-                  fixedCode: item.fixedCode,
-                  fixedName: item.fixedName,
-                  fixedStatus: item.fixedStatus,
-                  taskId: item.taskId,
-                  groupName: item.groupName,
-                  gtId: item.gtId,
-                  id: item.id,
-                  isNet: item.isNet,
-                  isTaskRange: item.isTaskRange,
-                  isTaskTime: item.isTaskTime,
-                  mac_num: item.mac_num,
-                  merchantId: item.merchantId,
-                  status: item.status,
-                  taskCode: item.taskCode,
-                  taskName: item.taskName,
-                  miName:item.miName
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else if (this.xz3 === true) {
+        this.$http
+          .get(`pc/device/list`, {
+            params: {
+              size: val,
+              type: 1
+            }
+          })
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.alltableData = [];
+              this.total = data.total;
+              data.content.forEach(item => {
+                if (item.lng) {
+                  that.generateData(item).then(function(result) {
+                    // console.log(result);
+                    item.formatted_address = result.formatted_address;
+                    item.lng = result.lng;
+                    item.lat = result.lat;
+                    // console.log(item.formatted_address)
+                    that.alltableData.push(item);
+                  });
+                } else {
+                  that.alltableData.push(item);
                 }
-                this.alltableData.push(this.Grouping)
-              }).catch((err) => {
-                console.log('错误信息' + err)
-              })
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
             }
           })
-        } else if (code == 2001) {
-          this.$message.error(res.data.message);
-          window.sessionStorage.clear();
-          window.localStorage.clear();
-          this.$router.push('/')
-        } else {
-          this.$message.error(res.data.message);
-        }
-      }).catch((err) => {
-        console.log('错误信息' + err)
-      })
-      }else if(this.xz3 === true){
-        this.$http.get(`pc/merchant/followerDeviceList`,{
-        params:{
-          size: this.sizes,
-          page: val - 1,
-          type:1
-        }
-      }).then(res => {
-        var { code, data } = res.data
-          if (code === 1000) {
-            console.log(data)
-            this.alltableData = data.content
-            this.total = data.total
-          } else if (code == 2001) {
-            this.$message.error(res.data.message);
-            window.sessionStorage.clear();
-            window.localStorage.clear();
-            this.$router.push('/')
-          } else {
-            this.$message.error(res.data.message);
-          }
-        }).catch((err) => {
-          console.log('错误信息' + err)
-        })
-      }else if(this.xz5 === true){
-        this.$http.get(`pc/merchant/followerDeviceList`,{
-        params:{
-          size: this.sizes,
-          page: val - 1,
-          type:2
-        }
-      }).then(res => {
-        var { code, data } = res.data
-          if (code === 1000) {
-            console.log(data)
-            this.alltableData = data.content
-            this.total = data.total
-          } else if (code == 2001) {
-            this.$message.error(res.data.message);
-            window.sessionStorage.clear();
-            window.localStorage.clear();
-            this.$router.push('/')
-          } else {
-            this.$message.error(res.data.message);
-          }
-        }).catch((err) => {
-          console.log('错误信息' + err)
-        })
-      }else if(this.xz7 === true){
-        this.$http.get(`pc/merchant/followerDeviceList`,{
-        params:{
-          size: this.sizes,
-          page: val - 1,
-          type:3
-        }
-      }).then(res => {
-        var { code, data } = res.data
-          if (code === 1000) {
-            console.log(data)
-            this.alltableData = data.content
-            this.total = data.total
-          } else if (code == 2001) {
-            this.$message.error(res.data.message);
-            window.sessionStorage.clear();
-            window.localStorage.clear();
-            this.$router.push('/')
-          } else {
-            this.$message.error(res.data.message);
-          }
-        }).catch((err) => {
-          console.log('错误信息' + err)
-        })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else if (this.xz5 === true) {
+        this.$http
+          .get(`pc/device/list`, {
+            params: {
+              size: val,
+              type: 2
+            }
+          })
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.alltableData = [];
+              this.total = data.total;
+              data.content.forEach(item => {
+                if (item.lng) {
+                  that.generateData(item).then(function(result) {
+                    // console.log(result);
+                    item.formatted_address = result.formatted_address;
+                    item.lng = result.lng;
+                    item.lat = result.lat;
+                    // console.log(item.formatted_address)
+                    that.alltableData.push(item);
+                  });
+                } else {
+                  that.alltableData.push(item);
+                }
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else if (this.xz7 === true) {
+        this.$http
+          .get(`pc/device/list`, {
+            params: {
+              size: val,
+              type: 3
+            }
+          })
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.alltableData = [];
+              this.total = data.total;
+              data.content.forEach(item => {
+                if (item.lng) {
+                  that.generateData(item).then(function(result) {
+                    // console.log(result);
+                    item.formatted_address = result.formatted_address;
+                    item.lng = result.lng;
+                    item.lat = result.lat;
+                    // console.log(item.formatted_address)
+                    that.alltableData.push(item);
+                  });
+                } else {
+                  that.alltableData.push(item);
+                }
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
       }
-      
     },
-    infoWindowClose () {
-      this.show = false
+    handleCurrentChange(val) {
+      let that = this;
+      this.pages = val;
+      if (this.xz1 === true) {
+        this.$http
+          .get(`pc/device/list`, {
+            params: {
+              size: this.sizes,
+              page: val - 1,
+              type: 0
+            }
+          })
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.alltableData = [];
+              this.total = data.total;
+              data.content.forEach(item => {
+                if (item.lng) {
+                  that.generateData(item).then(function(result) {
+                    // console.log(result);
+                    item.formatted_address = result.formatted_address;
+                    item.lng = result.lng;
+                    item.lat = result.lat;
+                    // console.log(item.formatted_address)
+                    that.alltableData.push(item);
+                  });
+                } else {
+                  that.alltableData.push(item);
+                }
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else if (this.xz3 === true) {
+        this.$http
+          .get(`pc/device/list`, {
+            params: {
+              size: this.sizes,
+              page: val - 1,
+              type: 1
+            }
+          })
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.alltableData = [];
+              this.total = data.total;
+              data.content.forEach(item => {
+                if (item.lng) {
+                  that.generateData(item).then(function(result) {
+                    // console.log(result);
+                    item.formatted_address = result.formatted_address;
+                    item.lng = result.lng;
+                    item.lat = result.lat;
+                    // console.log(item.formatted_address)
+                    that.alltableData.push(item);
+                  });
+                } else {
+                  that.alltableData.push(item);
+                }
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else if (this.xz5 === true) {
+        this.$http
+          .get(`pc/device/list`, {
+            params: {
+              size: this.sizes,
+              page: val - 1,
+              type: 2
+            }
+          })
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.alltableData = [];
+              this.total = data.total;
+              data.content.forEach(item => {
+                if (item.lng) {
+                  that.generateData(item).then(function(result) {
+                    // console.log(result);
+                    item.formatted_address = result.formatted_address;
+                    item.lng = result.lng;
+                    item.lat = result.lat;
+                    // console.log(item.formatted_address)
+                    that.alltableData.push(item);
+                  });
+                } else {
+                  that.alltableData.push(item);
+                }
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      } else if (this.xz7 === true) {
+        this.$http
+          .get(`pc/device/list`, {
+            params: {
+              size: this.sizes,
+              page: val - 1,
+              type: 3
+            }
+          })
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.alltableData = [];
+              this.total = data.total;
+              data.content.forEach(item => {
+                if (item.lng) {
+                  that.generateData(item).then(function(result) {
+                    // console.log(result);
+                    item.formatted_address = result.formatted_address;
+                    item.lng = result.lng;
+                    item.lat = result.lat;
+                    // console.log(item.formatted_address)
+                    that.alltableData.push(item);
+                  });
+                } else {
+                  that.alltableData.push(item);
+                }
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          })
+          .catch(err => {
+            console.log("错误信息" + err);
+          });
+      }
     },
-    infoWindowOpen () {
-      this.show = true
+    infoWindowClose() {
+      this.show = false;
     },
-    gb () {
-      this.hackReset = false
+    infoWindowOpen() {
+      this.show = true;
+    },
+    gb() {
+      this.hackReset = false;
       this.$nextTick(() => {
-        this.hackReset = true
-      })
-      this.center = {}
-      this.ikon = false
+        this.hackReset = true;
+      });
+      this.center = {};
+      this.ikon = false;
     },
-    place (row) {
-      this.show = true
-      this.center = {
-        lat: Number(row.lat),
-        lng: Number(row.lng)
+    place(row) {
+      console.log(row);
+      if (row.lng == null || row.lng == "") {
+        this.$message({
+          message: "此设备暂时没有位置信息",
+          type: "warning"
+        });
+      } else {
+        this.item = row;
+        this.map = true;
       }
-      this.addressname = row.addressname
-      this.ikon = true
-    },
+      console.log("this.item", this.item);
+    }
   }
-}
+};
 </script>
 
 <style lang='scss' module>
