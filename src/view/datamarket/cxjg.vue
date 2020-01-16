@@ -272,6 +272,22 @@
           <span :class="$style.f_ddname">源数据量：</span>
           <span :class="$style.f_ddname">{{ysjl1}}</span>
         </el-row>
+        <!-- <div :class="$style.f_hxrow">
+          <span :class="$style.f_ddname">选择日期：</span>
+          <el-date-picker
+            v-model="sdata"
+            type="daterange"
+            value-format="yyyy-MM-dd"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+          ></el-date-picker>
+          <el-button @click="buttons">查询</el-button>
+        </div>
+        <div :class="$style.f_hxrow">
+          <span :class="$style.f_ddname">日期数量：{{riqi}}</span>
+          <span :class="$style.f_ddname"></span>
+        </div> -->
         <el-row :class="$style.f_hxrow">
           <span :class="$style.f_ddname">订单数量:</span>
           <el-input
@@ -282,6 +298,78 @@
             clearable
           ></el-input>
         </el-row>
+        <div :class="$style.f_hxrow">
+          <div style="line-height: 40px;margin-right: 1%;display: inline-block;">
+            <span :class="$style.f_ddname">数据范围:</span>
+          </div>
+          <div style="line-height: 40px;display: inline-block;">
+            <span>居住地点:</span>
+          </div>
+          <div style="display: inline-block;">
+            <el-cascader
+              :change-on-select="true"
+              :options="dwell"
+              :props="props"
+              v-model="placeofresidence"
+              @change="live"
+              clearable
+            ></el-cascader>
+          </div>
+          <div style="line-height: 40px;display: inline-block;margin-left:5%;">
+            <span>年龄:</span>
+          </div>
+          <div style="display: inline-block;width:13%;">
+            <el-select v-model="age" @change="live" clearable placeholder="请选择">
+              <el-option
+                v-for="item in agebin"
+                :key="item.value"
+                :label="item.name"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </div>
+          <div style="display: inline-block;margin-left:5%;">
+            <span>职业:</span>
+          </div>
+          <div style="line-height: 40px;display: inline-block;">
+            <el-select v-model="zy" @change="live" clearable placeholder="请选择">
+              <el-option
+                v-for="item in career"
+                :key="item.value"
+                :label="item.name"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </div>
+        </div>
+        <div :class="$style.f_hxrow">
+          <div style="line-height: 40px;margin-left:9%;display: inline-block;" :span="2">
+            <span>工作地点:</span>
+          </div>
+          <div style="display: inline-block;">
+            <el-cascader
+              :change-on-select="true"
+              :options="work"
+              :props="worksite"
+              v-model="workplace"
+              @change="live"
+              clearable
+            ></el-cascader>
+          </div>
+          <div style="line-height: 40px;    margin-left: 5%;display: inline-block;" :span="3">
+            <span>性别:</span>
+          </div>
+          <div style="display: inline-block; width:13%">
+            <el-select v-model="jzdd" @change="live" clearable placeholder="请选择">
+              <el-option
+                v-for="item in sex"
+                :key="item.value"
+                :label="item.name"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </div>
+        </div>
         <el-row :class="$style.f_hxrow">
           <span :class="$style.f_ddname">订购金额：</span>
           <span :class="$style.f_ddname" v-if="dgmoney!=null">{{dgmoney}}VKT</span>
@@ -352,6 +440,98 @@ export default {
   },
   data () {
     return {
+      sdata:'',
+      dwell: [],
+      mappingPrice: null,
+      props: {
+        lazy: true,
+        lazyLoad(node, resolve) {
+          const { level } = node;
+          let option = {
+            url: "pc/order/yzProvince",
+            methods: "get"
+          };
+          if (level === 0) {
+            option.url = "pc/order/yzProvince";
+          } else if (level === 1) {
+            (option.url = `pc/order/yzCity`),
+              (option.params = {
+                province: node.value
+              });
+          }
+          axios(option).then(res => {
+            let { meta, data, code } = res.data;
+            if (code === 1000) {
+              const nodes = Array.from({ length: data.length }).map(
+                (item, i) => ({
+                  value: data[i].ID,
+                  label: data[i].CN,
+                  leaf: level >= 1
+                })
+              );
+              // 通过调用resolve将子节点数据返回，通知组件数据加载完成
+              // console.log(nodes)
+              resolve(nodes);
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          });
+        }
+      },
+      placeofresidence: "",
+            agebin: [],
+      career: [],
+      work: [],
+      worksite: {
+        lazy: true,
+        lazyLoad(node, resolve) {
+          const { level } = node;
+          let option = {
+            url: "pc/order/yzProvince",
+            methods: "get"
+          };
+          if (level === 0) {
+            option.url = "pc/order/yzProvince";
+          } else if (level === 1) {
+            (option.url = `pc/order/yzCity`),
+              (option.params = {
+                province: node.value
+              });
+          }
+          axios(option).then(res => {
+            let { meta, data, code } = res.data;
+            if (code === 1000) {
+              const nodes = Array.from({ length: data.length }).map(
+                (item, i) => ({
+                  value: data[i].ID,
+                  label: data[i].CN,
+                  leaf: level >= 1
+                })
+              );
+              // 通过调用resolve将子节点数据返回，通知组件数据加载完成
+              // console.log(nodes)
+              resolve(nodes);
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          });
+        }
+      },
+      workplace: "",
+      jzdd: "",
+      sex: [],
+      age:[],
+      zy:[],
       options: [],
       province: [],
       urbandistrict: [],
@@ -529,6 +709,7 @@ export default {
       dgdata: false,
       dgmoney: null,
       input: '',
+      riqi:'',
       formname: '',
       ysjl: 2000,
       ikon: false,
@@ -1259,6 +1440,7 @@ export default {
       this.districtcollectionfours = []
     },
     dgsj (index, row) {
+      // console.log('zheshirow',row)
       this.searchId = row.searchUUID
       // let info = new FormData()
       // info.append('type',1)
@@ -1275,6 +1457,24 @@ export default {
       }).catch(function (err) {
         console.log('错误信息' + err)
       })
+      this.$http.get("pc/order/yzSign").then(res => {
+        var { code, data } = res.data;
+        if (code === 1000) {
+          this.career = data.occupation;
+          this.sex = data.gender;
+          this.agebin = data.agebin;
+        } else if (code == 2001) {
+          this.$message.error(res.data.message);
+          window.sessionStorage.clear();
+          window.localStorage.clear();
+          this.$router.push("/");
+        } else {
+          this.$message.error(res.data.message);
+        }
+      })
+      .catch(function(err) {
+        console.log("错误信息" + err);
+      });
       this.$http.post(`pc/order/init`, info).then(res => {
         var { code, data } = res.data
         if (code === 1000) {
@@ -1282,6 +1482,7 @@ export default {
           this.formname = data.name
           this.ysjl1 = data.dataCount
           this.dataPrice = data.dataPrice
+          this.mappingPrice = data.mappingPrice;
         }
       }).catch((err) => {
         console.log('错误信息' + err)
@@ -1294,6 +1495,31 @@ export default {
       console.log(this.buyAmount)
       console.log(this.dataPrice)
     },
+    live() {
+      let dataPrice = this.dataPrice;
+      let placeofresidence = this.placeofresidence;
+      let age = this.age.length;
+      let zy = this.zy.length;
+      let workplace = this.workplace;
+      let jzdd = this.jzdd;
+      if (placeofresidence != "") {
+        dataPrice = dataPrice + this.mappingPrice / 0.1;
+      }
+      if (age != "") {
+        dataPrice = dataPrice + this.mappingPrice / 0.1;
+      }
+      if (zy != "") {
+        dataPrice = dataPrice + this.mappingPrice / 0.1;
+      }
+      if (workplace != "") {
+        dataPrice = dataPrice + this.mappingPrice / 0.1;
+      }
+      if (jzdd != "") {
+        dataPrice = dataPrice + this.mappingPrice / 0.1;
+      }
+      this.dgmoney = Number(this.buyAmount) * dataPrice;
+    },
+
     sjdata () {
       this.formname = ''
       this.buyAmount = ''
@@ -1422,9 +1648,20 @@ export default {
         // info.append('searchId', this.searchId,)
         // info.append('price', 232)
         let info = {
-          'name':this.formname,
-          'searchId': this.searchId,
-          'price': 232
+          name: this.formname,
+          buyAmount: this.buyAmount,
+          ids: this.ids,
+          taskIds: this.id,
+          buyPrice: this.dgmoney,
+          gender: this.jzdd,
+          agebin: this.age,
+          occupation: this.zy,
+          workplaceProvince: this.workplace[0],
+          workplaceCity: this.workplace[1],
+          residenceProvince: this.placeofresidence[0],
+          residenceCity: this.placeofresidence[1],
+          startDate: this.sdata[0],
+          endDate: this.sdata[1]
         }
         this.$http.post(`pc/order/orderPersona`,info).then(res => {
           var { code, data } = res.data

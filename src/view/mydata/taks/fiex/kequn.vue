@@ -213,20 +213,11 @@ export default {
               heatmap = new AMap.Heatmap(map, {
                 radius: 25, //给定半径
                 opacity: [0, 0.8]
-                /*,
-            gradient:{
-                0.5: 'blue',
-                0.65: 'rgb(117,211,248)',
-                0.7: 'rgb(0, 255, 0)',
-                0.9: '#ffea00',
-                1.0: 'red'
-            }
-             */
+              
               });
               heatmap.setDataSet({
                 data: data
               });
-
               const markers = data.map(
                 item =>
                   new AMap.Marker({
@@ -393,11 +384,7 @@ export default {
           aireType: this.radio6,
           income: this.checkboxGroup5
         };
-      } else if (
-        this.value1 != "" &&
-        this.radio6 != "4" &&
-        this.radio6 != "5"
-      ) {
+      } else if (this.value1 != "" &&this.radio6 != "4" &&this.radio6 != "5") {
         info = {
           taskId: this.id,
           startDate: this.value1[0],
@@ -455,6 +442,17 @@ export default {
           edu: this.checkboxGroup3,
           kids: this.checkboxGroup4,
           nationalType: "5",
+          income: this.checkboxGroup5
+        };
+      }else{
+        info = {
+          taskId: this.id,
+          startDate: this.value1[0],
+          endDate: this.value1[1],
+          gender: this.checkboxGroup1,
+          agebin: this.checkboxGroup2,
+          edu: this.checkboxGroup3,
+          kids: this.checkboxGroup4,
           income: this.checkboxGroup5
         };
       }

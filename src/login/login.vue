@@ -94,6 +94,7 @@ export default {
       input: "",
       input1: "",
       btname: "首页",
+      btname1: "展示大厅",
       user: "用户名",
       mima1: "密码",
       bac1: false,
@@ -131,28 +132,80 @@ export default {
         this.$message.error("输入的验证码不正确");
         return;
       }
-        this.$http.post(`pc/user/login`, { username: this.input, password: md }).then(res => {
+      this.$http
+        .post(`pc/user/login`, { username: this.input, password: md })
+        .then(res => {
           var { code, data } = res.data;
           if (code === 1000) {
             this.Message = data.Message;
-            if (this.Message === null) {
+            this.proxyType = data.merchant.proxyType;
+            if (this.proxyType != 7) {
+              if (this.Message === null) {
+                let token = res.headers.api_token;
+                window.sessionStorage.setItem("token", token);
+                window.sessionStorage.setItem(
+                  "info",
+                  JSON.stringify(data.user)
+                );
+                this.$store.commit("myval1", this.btname);
+                this.$store.commit("updateUserInfo", data);
+                let arr = [
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12"
+                ];
+                window.sessionStorage.setItem("data", JSON.stringify(arr));
+                // console.log(JSON.stringify(arr))
+                this.$router.push("./index/indexx.vue");
+              } else {
+                let token = res.headers.api_token;
+                window.sessionStorage.setItem("token", token);
+                window.sessionStorage.setItem(
+                  "info",
+                  JSON.stringify(data.user)
+                );
+                this.$store.commit("myval1", this.btname);
+                this.$store.commit("updateUserInfo", data);
+                let arr = [
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12"
+                ];
+                window.sessionStorage.setItem("data", JSON.stringify(arr));
+                // console.log(JSON.stringify(arr))
+                this.$router.push("./index/indexx.vue");
+                this.$message.error(this.Message);
+              }
+            } else {
               let token = res.headers.api_token;
               window.sessionStorage.setItem("token", token);
-              this.$store.commit("myval1", this.btname);
+              window.sessionStorage.setItem("info", JSON.stringify(data.user));
+              this.$store.commit("myval1", this.btname1);
               this.$store.commit("updateUserInfo", data);
-              let arr = ["0","1","2","3","4","5","6","7","8","9","10","11","12"];
+              let arr = ["13"];
               window.sessionStorage.setItem("data", JSON.stringify(arr));
               // console.log(JSON.stringify(arr))
-              this.$router.push("./index/indexx.vue");
-            }else{
-              let token = res.headers.api_token;
-              window.sessionStorage.setItem("token", token);
-              this.$store.commit("myval1", this.btname);
-              this.$store.commit("updateUserInfo", data);
-              let arr = ["0","1","2","3","4","5","6","7","8","9","10","11","12"];
-              window.sessionStorage.setItem("data", JSON.stringify(arr));
-              // console.log(JSON.stringify(arr))
-              this.$router.push("./index/indexx.vue");
+              this.$router.push("./index/exhibition.vue");
               this.$message.error(this.Message);
             }
           } else {
@@ -200,52 +253,52 @@ export default {
         this.beginClientX = e.clientX;
       }
     }, //mousedoen 事件
-    successFunction() {
-      this.confirmSuccess = true;
-      this.confirmWords = "验证通过";
-      if (window.addEventListener) {
-        document
-          .getElementsByTagName("html")[0]
-          .removeEventListener("mousemove", this.mouseMoveFn);
-        document
-          .getElementsByTagName("html")[0]
-          .removeEventListener("mouseup", this.moseUpFn);
-      } else {
-        document
-          .getElementsByTagName("html")[0]
-          .removeEventListener("mouseup", () => {});
-      }
-      document.getElementsByClassName("drag_text")[0].style.color = "#5C9B51";
-      document.getElementsByClassName("handler")[0].style.left =
-        this.maxwidth + "px";
-      document.getElementsByClassName("drag_bg")[0].style.width = 346 + "px";
-      // document.getElementsByClassName('drag_bg')[0].style.width = this.maxwidth + 'px';
-    }, //验证成功函数
-    mouseMoveFn(e) {
-      if (this.mouseMoveStata) {
-        let width = e.clientX - this.beginClientX;
-        if (width > 0 && width <= this.maxwidth) {
-          document.getElementsByClassName("handler")[0].style.left =
-            width + "px";
-          document.getElementsByClassName("drag_bg")[0].style.width =
-            width + "px";
-        } else if (width > this.maxwidth) {
-          this.successFunction();
-        }
-      }
-    },
-    //失败
-    mouseMoveFn1(e) {
-      if (this.mouseMoveStata) {
-        let width = e.clientX - this.beginClientX;
-        if ((width = 0 && width <= this.maxwidth)) {
-          document.getElementsByClassName("handler")[0].style.left = 0 + "px";
-          document.getElementsByClassName("drag_bg")[0].style.width = 0 + "px";
-        } else if (width > this.maxwidth) {
-          this.successFunction();
-        }
-      }
-    },
+    // successFunction() {
+    //   this.confirmSuccess = true;
+    //   this.confirmWords = "验证通过";
+    //   if (window.addEventListener) {
+    //     document
+    //       .getElementsByTagName("html")[0]
+    //       .removeEventListener("mousemove", this.mouseMoveFn);
+    //     document
+    //       .getElementsByTagName("html")[0]
+    //       .removeEventListener("mouseup", this.moseUpFn);
+    //   } else {
+    //     document
+    //       .getElementsByTagName("html")[0]
+    //       .removeEventListener("mouseup", () => {});
+    //   }
+    //   document.getElementsByClassName("drag_text")[0].style.color = "#5C9B51";
+    //   document.getElementsByClassName("handler")[0].style.left =
+    //     this.maxwidth + "px";
+    //   document.getElementsByClassName("drag_bg")[0].style.width = 346 + "px";
+    //   // document.getElementsByClassName('drag_bg')[0].style.width = this.maxwidth + 'px';
+    // }, //验证成功函数
+    // mouseMoveFn(e) {
+    //   if (this.mouseMoveStata) {
+    //     let width = e.clientX - this.beginClientX;
+    //     if (width > 0 && width <= this.maxwidth) {
+    //       document.getElementsByClassName("handler")[0].style.left =
+    //         width + "px";
+    //       document.getElementsByClassName("drag_bg")[0].style.width =
+    //         width + "px";
+    //     } else if (width > this.maxwidth) {
+    //       this.successFunction();
+    //     }
+    //   }
+    // },
+    // //失败
+    // mouseMoveFn1(e) {
+    //   if (this.mouseMoveStata) {
+    //     let width = e.clientX - this.beginClientX;
+    //     if ((width = 0 && width <= this.maxwidth)) {
+    //       document.getElementsByClassName("handler")[0].style.left = 0 + "px";
+    //       document.getElementsByClassName("drag_bg")[0].style.width = 0 + "px";
+    //     } else if (width > this.maxwidth) {
+    //       this.successFunction();
+    //     }
+    //   }
+    // },
     randomNum(min, max) {
       return Math.floor(Math.random() * (max - min) + min);
     },

@@ -1,7 +1,7 @@
 <template>
   <el-container>
-    <el-header style="height:108px">
-      <el-row style="height:60px">
+    <el-header style="">
+      <el-row style="height:87.4px">
         <div :class="$style.f_logo">
           <img src="../assets/img/清竹大数据横版.png" alt :class="$style.f_u">
           <span :class="$style.f_s"></span>
@@ -24,6 +24,7 @@
               :key="i"
               :index="item.path"
               @click="yjcd(item)"
+              id="elem"
             >
               <span>{{item.name}}</span>
             </el-menu-item>
@@ -49,15 +50,19 @@
           </el-menu>
         </div>
         <div style="display: inline-block; vertical-align: top; float:right;margin-right:30px;">
+          <!-- <i class="el-icon-s-custom" :class="$style.f_name"> -->
+          <!-- </i> -->
+          <span style="padding-right:10px;font-size:14px;  cursor: pointer;">登录账号：{{info.username}}</span>
           <i
             class="iconfont iconhaofangtuo400iconfontyonghuming yonghu"
             @mouseover="geren"
             @mouseout="yh"
             :class="$style.f_name"
+            v-if="proxyType!=7"
           ></i>
           <ul class="user" v-show="dh===true" @mouseover="jiben" @mouseout="xinxi" style="right:6%;">
             <li class="yhxx" @click="jibenxinxi">基本信息</li>
-            <li class="yhxx" @click="xiugaimima">修改密码</li>
+            <li class="yhxx" @click="xiugaimima" style="padding:3px;">修改密码</li>
           </ul>
           <el-badge v-if="num!=0" style="vertical-align: top;" :value="num" class="item">
             <i class="iconfont iconxiaoxi"></i>
@@ -65,8 +70,8 @@
           <!-- <el-badge v-if="num===0" style="vertical-align: top;">
             <i class="iconfont iconxiaoxi"></i>
           </el-badge> -->
-          <i class="iconfont icon3" :class="$style.f_name" @mouseover="geren1" @mouseout="yh1"></i>
-          <ul class="zc" v-show="dh1===true" @mouseover="jiben1" @mouseout="xinxi1">
+          <i class="iconfont icon3" :class="$style.f_name" @mouseover="geren1" @mouseout="yh1" v-if="proxyType!=7"></i>
+          <ul class="zc" v-show="dh1===true" @mouseover="jiben1" @mouseout="xinxi1" style="border-bottom:none">
             <!-- <li class="yhxx1" ref="zc1">资产合计{{heji}}</li> -->
             <!-- <li class="yhxx1" disabled>3000.000VKT</li>
             <li class="yhxx1">3000.0CNY</li>-->
@@ -85,9 +90,13 @@
           <i class="iconfont icontuichu" :class="$style.f_name" @click="ext"></i>
         </div>
       </el-row>
-      <el-row :class="$style.f_mbx">
-        <el-col :span="4">{{name}}</el-col>
-      </el-row>
+      <!-- <el-row :class="$style.f_mbx"> -->
+        <!-- <el-col :span="4">{{name}}</el-col> -->
+        <!-- <span style="float:left">{{name}}</span> -->
+      <!-- </el-row> -->
+      <!-- <div class="app" style="background:#eff2f7" v-if="proxyType!=7">
+        <span style="margin-right:1365px;">{{name}}</span>
+      </div> -->
     </el-header>
     <el-main>
       <router-view></router-view>
@@ -107,22 +116,24 @@ export default {
       data: [
         { name: '首页', path: '/index/indexx.vue', id: '0' },
         {          name: '我的数据', id: '1', child: [
-            { name: '数据任务', path: '/index/pick.vue', id: '2' },
+          { name: '数据任务', path: '/index/pick.vue', id: '2' },
             { name: '数据订单', path: '/index/dataorder.vue', id: '3' },
             { name: '数据画像', path: '/index/dataikon.vue', id: '4' },
             { name: '固定画像', path: '/index/fiexikon.vue', id: '5' },
             // { name: '数据回购', path: '/index/datarepo.vue', id: '6' },
           ]        },
         {          name: '数据市场', id: '7', child: [
-            { name: '数据市场', path: '/index/datamarket.vue', id: '8' },
+          { name: '数据市场', path: '/index/datamarket.vue', id: '8' },
             // { name: '任务广场', path: '/index/taskmarket.vue', id: '9' },
           ]        },
         {          name: '终端管理', id: '10', child: [
-            { name: '终端设备', path: '/index/pickzd.vue', id: '11' },
+          { name: '终端设备', path: '/index/pickzd.vue', id: '11' },
             { name: '分组终端', path: '/index/groupinggl.vue', id: '12' },
-          ]        }
+          ]        },
+        { name: "展会通 | 家装建材", path: "/index/exhibition.vue", id: "13" },
       ],
       list: JSON.parse(window.sessionStorage.getItem('data')),
+      info: JSON.parse(window.sessionStorage.getItem("info")),
       // name:JSON.parse(window.localStorage.getItem('vuex.userinfo.merchant')),
       activeIndex: '1',
       num: 0,
@@ -288,12 +299,13 @@ export default {
   height: 48px;
   line-height: 48px;
   width: 100%;
-  float: left;
-  position: absolute;
+  // float: left;
+  // position: absolute;
   .f_mbxdh {
     height: 48px;
     line-height: 48px;
     padding-left: 20px;
+    // margin-left: 100px;
   }
 }
 .f_tb {

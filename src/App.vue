@@ -44,4 +44,12 @@ export default {
   color: #2c3e50;
   height: 100%;
 }
+.el-menu.el-menu--horizontal {
+    border-bottom: none;
+}
+/* #elem:hover
+
+{
+  color: red;
+} */
 </style>

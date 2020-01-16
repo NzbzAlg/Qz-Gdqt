@@ -207,10 +207,15 @@ export default {
                 opacity: [0, 0.8]
               });
               heatmap.setDataSet({
-                data: data,
-                max: 100
+                data: data
               });
-              map.setFitView();
+              const markers = data.map(
+                item =>
+                  new AMap.Marker({
+                    position: new AMap.LngLat(item.lng, item.lat)
+                  })
+              );
+              map.setFitView(markers);
             });
           }
         })
@@ -258,6 +263,7 @@ export default {
           var { code, data } = res.data;
           if (code === 1000) {
             console.log(data);
+            this.data = data;
             var map = new AMap.Map("allmap", {
               zoom: 11
             });
@@ -279,43 +285,17 @@ export default {
               });
               //设置数据集：该数据为北京部分“公园”数据
               heatmap.setDataSet({
-                data: data,
-                max: 100
+                data: data
               });
 
-              map.setFitView();
+              const markers = data.map(
+                item =>
+                  new AMap.Marker({
+                    position: new AMap.LngLat(item.lng, item.lat)
+                  })
+              );
+              map.setFitView(markers);
             });
-            // this.data = data
-            // var points = this.data;
-            // // 百度坐标系坐标(地图中需要使用这个)
-            // var bPoints = new Array();
-            // //创建标注点并添加到地图中
-            // function addMarker (points) {
-            //   for (var i = 0, pointsLen = points.length; i < pointsLen; i++) {
-            //     var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
-            //     bPoints.push(point); // 添加到百度坐标数组 用于自动调整缩放级别
-            //   }
-            // }
-            // // 根据点的数组自动调整缩放级别
-            // function setZoom (bPoints) {
-            //   var view = map.getViewport(eval(bPoints));
-            //   var mapZoom = view.zoom;
-            //   var centerPoint = view.center;
-            //   map.centerAndZoom(centerPoint, mapZoom);
-            // }
-            // //创建地图
-            // var map = new BMap.Map("allmap");
-            // map.centerAndZoom(new BMap.Point(116.46, 39.92), 12); // 设置中心点
-            // addMarker(points);
-            // map.addControl(new BMap.MapTypeControl());
-            // map.enableScrollWheelZoom(true);
-            // var heatmapOverlay = new BMapLib.HeatmapOverlay({ "radius": 20 });
-            // map.addOverlay(heatmapOverlay);
-            // heatmapOverlay.setDataSet({ data: points, max: 1 });
-            // heatmapOverlay.show();
-            // setTimeout(function () {
-            //   setZoom(bPoints);
-            // }, 3000)
           } else {
             console.log(data);
           }
@@ -362,36 +342,6 @@ export default {
           if (code === 1000) {
             console.log(data);
             this.data = data;
-            // var points = this.data;
-            // // 百度坐标系坐标(地图中需要使用这个)
-            // var bPoints = new Array();
-            // //创建标注点并添加到地图中
-            // function addMarker(points) {
-            //   for (var i = 0, pointsLen = points.length; i < pointsLen; i++) {
-            //     var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
-            //     bPoints.push(point); // 添加到百度坐标数组 用于自动调整缩放级别
-            //   }
-            // }
-            // // 根据点的数组自动调整缩放级别
-            // function setZoom(bPoints) {
-            //   var view = map.getViewport(eval(bPoints));
-            //   var mapZoom = view.zoom;
-            //   var centerPoint = view.center;
-            //   map.centerAndZoom(centerPoint, mapZoom);
-            // }
-            // //创建地图
-            // var map = new BMap.Map("allmap");
-            // map.centerAndZoom(new BMap.Point(116.46, 39.92), 12); // 设置中心点
-            // addMarker(points);
-            // map.addControl(new BMap.MapTypeControl());
-            // map.enableScrollWheelZoom(true);
-            // var heatmapOverlay = new BMapLib.HeatmapOverlay({ radius: 20 });
-            // map.addOverlay(heatmapOverlay);
-            // heatmapOverlay.setDataSet({ data: points, max: 1 });
-            // heatmapOverlay.show();
-            // setTimeout(function() {
-            //   setZoom(bPoints);
-            // }, 3000);
             var map = new AMap.Map("allmap", {
               zoom: 11
             });

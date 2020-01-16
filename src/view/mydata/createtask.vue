@@ -389,7 +389,7 @@ export default {
           label: '20米'
         },
         {
-          value: '100',
+          value: '500',
           label: '20+'
         },
       ],

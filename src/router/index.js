@@ -52,7 +52,11 @@ const Agent = () => import('@/view/xj/agent.vue')
 const Lowertasks = () => import('@/view/xj/lowertasks.vue')
 const Lowerend = () => import('@/view/xj/lowerend.vue')
 const AllLowerend = () => import('@/view/xj/allLowerend.vue')
-
+//展示大厅
+const Exhibition = () => import('@/view/exhibition/exhibition.vue')
+const TwoZeroYear = () => import('@/view/exhibition/twoZeroYear.vue')
+const OneNineYear = () => import('@/view/exhibition/oneNineYear.vue')
+const OneEightYear = () => import('@/view/exhibition/oneEightYear.vue')
 Vue.use(Router)
 
 const router = new Router({
@@ -251,6 +255,23 @@ const router = new Router({
         {
           path: 'lowerend.vue',
           component: Lowerend
+        },
+        //展示大厅
+        {
+          path:'exhibition.vue',
+          component:Exhibition
+        },
+        {
+          path:'twoZeroYear.vue',
+          component:TwoZeroYear
+        },
+        {
+          path:'oneNineYear.vue',
+          component:OneNineYear
+        },
+        {
+          path:'oneEightYear.vue',
+          component:OneEightYear
         },
         {
           path: 'allLowerend.vue',

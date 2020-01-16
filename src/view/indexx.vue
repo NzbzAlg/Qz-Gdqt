@@ -370,12 +370,12 @@ export default {
             },
             color: ['#9013FE', '#3B7CFF'],
             legend: {
-              data: ['数据收益', '任务收益']
+              data: ['数据确权', '任务收益']
             },
             grid: {
               left: '3%',
               right: '4%',
-              bottom: '3%',
+              bottom: '3%',   
               containLabel: true
             },
             toolbox: {
@@ -393,7 +393,7 @@ export default {
             },
             series: [
               {
-                name: '数据收益',
+                name: '数据确权',
                 type: 'line',
                 smooth: true,
                 stack: '总量',
@@ -438,7 +438,7 @@ export default {
             },
             color: ['#9013FE', '#3B7CFF'],
             legend: {
-              data: ['数据收益', '任务收益']
+              data: ['数据确权', '任务收益']
             },
             grid: {
               left: '3%',
@@ -461,7 +461,7 @@ export default {
             },
             series: [
               {
-                name: '数据收益',
+                name: '数据确权',
                 type: 'line',
                 smooth: true,
                 stack: '总量',
@@ -505,7 +505,7 @@ export default {
             },
             color: ['#9013FE', '#3B7CFF'],
             legend: {
-              data: ['数据收益', '任务收益']
+              data: ['数据确权', '任务收益']
             },
             grid: {
               left: '3%',
@@ -528,7 +528,7 @@ export default {
             },
             series: [
               {
-                name: '数据收益',
+                name: '数据确权',
                 type: 'line',
                 smooth: true,
                 stack: '总量',

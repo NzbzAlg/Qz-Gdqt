@@ -1,80 +1,21 @@
 <template>
   <div :class="$style.f_bj">
-    <div :class="$style.f_s">
-      <el-card shadow="always" :class="$style.f_kp">
-        <p :class="$style.f_p">全部任务</p>
-        <p :class="$style.f_num">{{num}}</p>
-        <el-progress :percentage="num5" :class="$style.f_jd" :format="format"></el-progress>
-      </el-card>
-    </div>
-    <div :class="$style.f_s6">
-      <el-card shadow="always" :class="$style.f_kp">
-        <p :class="$style.f_p">已结束</p>
-        <p :class="$style.f_num1">{{num1}}</p>
-        <el-progress :percentage="num6" class="f_jd1" :format="format"></el-progress>
-      </el-card>
-    </div>
-    <div :class="$style.f_s6">
-      <el-card shadow="always" :class="$style.f_kp">
-        <p :class="$style.f_p">未结束</p>
-        <p :class="$style.f_num2">{{num2}}</p>
-        <el-progress :percentage="num7" class="f_jd2" :format="format"></el-progress>
-      </el-card>
-    </div>
-    <div :class="$style.f_s6">
-      <el-card shadow="always" :class="$style.f_kp">
-        <p :class="$style.f_p">自建任务</p>
-        <p :class="$style.f_num3">{{num3}}</p>
-        <el-progress :percentage="num8" class="f_jd3" :format="format"></el-progress>
-      </el-card>
-    </div>
-    <div :class="$style.f_s6">
-      <el-card shadow="always" :class="$style.f_kp">
-        <p :class="$style.f_p">平台任务</p>
-        <p :class="$style.f_num4">{{num4}}</p>
-        <el-progress :percentage="num9" class="f_jd4" :format="format"></el-progress>
-      </el-card>
-    </div>
-    <!-- 任务筛选 -->
-    <div :class="$style.f_sx">
-      <p>任务筛选</p>
-      <!-- 输入框 -->
-      <div :class="$style.f_search">
-        <span :class="$style.f_cx">输入查询</span>
-        <el-input placeholder="请输入搜索内容" v-model="search1" :class="$style.f_inpt" clearable></el-input>
-        <el-date-picker
-          v-model="value1"
-          type="date"
-          :class="$style.f_date"
-          placeholder="选择日期"
-          value-format="yyyy-MM-dd"
-        ></el-date-picker>
-        <el-button plain :class="$style.f_chaxun" @click="inquire">查询</el-button>
-        <el-button type="info" plain @click="chongzhi">重置</el-button>
-        <el-button
-          :class="$style.f_chaxun"
-          plain
-          @click="shujutongji"
-          style="float:right;margin-top:10px;margin-right:20px;"
-        >数据统计</el-button>
-      </div>
-    </div>
     <!-- 表格 -->
     <div :class="$style.f_table">
-      <p style="display:inline-block;">任务列表</p>
-      <div
+      <!-- <p style="display:inline-block;">任务列表</p> -->
+      <!-- <div
         :class="$style.f_btn"
         @click="cjrw"
         style="float: right; vertical-align: top; margin: 80px -12px; margin-right: 21px; margin-bottom: 0px;"
-      >创建任务</div>
+      >创建任务</div> -->
       <div :class="$style.f_row">
-        <div :class="{'f_fy':xz,'f_fy1':xz1}" @click="qb">全部</div>
-        <div :class="{'f_fy':xz2,'f_fy1':xz3}" @click="ywc">已完成</div>
+        <div :class="{'f_fy':xz,'f_fy1':xz1}" @click="qb">数据</div>
+        <!-- <div :class="{'f_fy':xz2,'f_fy1':xz3}" @click="ywc">已完成</div>
         <div :class="{'f_fy':xz4,'f_fy1':xz5}" @click="wwc">未完成</div>
         <div :class="{'f_fy':xz6,'f_fy1':xz7}" @click="zzrw">自建任务</div>
-        <div :class="{'f_fy':xz8,'f_fy1':xz9}" @click="ptrw">平台任务</div>
+        <div :class="{'f_fy':xz8,'f_fy1':xz9}" @click="ptrw">平台任务</div> -->
         <div style="float:right;display:inline-block;margin-right: 14px;">
-          <div :class="$style.f_btn" @click="orderikion">订购画像</div>
+          <!-- <div :class="$style.f_btn" @click="orderikion">订购画像</div> -->
           <div :class="$style.f_btn" @click="orderdata">订购数据</div>
         </div>
         <!-- <div :class="$style.f_btns" @click="complementary">确权补充机制</div> -->
@@ -1227,9 +1168,10 @@ export default {
       this.xz9 = false;
       this.currentPage4 = 1;
       this.$http
-        .get(`pc/task/list`, {
+        .get(`pc/task/exhibitionList`, {
           params: {
             tab: 0,
+            type:2,
             size: this.sizes
           }
         })
@@ -1281,9 +1223,10 @@ export default {
       this.xz9 = false;
       this.currentPage4 = 1;
       this.$http
-        .get(`pc/task/list`, {
+        .get(`pc/task/exhibitionList`, {
           params: {
             tab: 1,
+            type:2,
             size: this.sizes
           }
         })
@@ -1329,9 +1272,10 @@ export default {
       this.xz9 = false;
       this.currentPage4 = 1;
       this.$http
-        .get(`pc/task/list`, {
+        .get(`pc/task/exhibitionList`, {
           params: {
             tab: 2,
+            type:2,
             size: this.sizes
           }
         })
@@ -1377,9 +1321,10 @@ export default {
       this.xz9 = false;
       this.currentPage4 = 1;
       this.$http
-        .get(`pc/task/list`, {
+        .get(`pc/task/exhibitionList`, {
           params: {
             tab: 3,
+            type:2,
             size: this.sizes
           }
         })
@@ -1425,9 +1370,10 @@ export default {
       this.xz9 = true;
       this.currentPage4 = 1;
       this.$http
-        .get(`pc/task/list`, {
+        .get(`pc/task/exhibitionList`, {
           params: {
             tab: 4,
+            type:2,
             size: this.sizes
           }
         })
@@ -1459,200 +1405,6 @@ export default {
           console.log("连接错误" + err);
         });
     },
-    // 搜索
-    inquire() {
-      if (this.xz1 === true) {
-        this.$http
-          .get(`pc/task/list`, {
-            params: {
-              tab: 0,
-              size: this.sizes,
-              keyWord: this.search1,
-              QueryDate: this.value1
-            }
-          })
-          .then(res => {
-            var { code, data } = res.data;
-            if (code === 1000) {
-              this.tableData = data.content;
-              this.total = data.total;
-              this.tableData.forEach(item => {
-                item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
-                item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
-                // item.cj = item.collectList[0].scencesName
-                if (item.collectList[0] === undefined) {
-                  console.log(1);
-                } else {
-                  // console.log(item.collectList[0])
-                  item.cj = item.collectList[0].scencesName;
-                }
-              });
-            } else if (code == 2001) {
-              this.$message.error(res.data.message);
-              window.sessionStorage.clear();
-              window.localStorage.clear();
-              this.$router.push("/");
-            } else {
-              this.$message.error(res.data.message);
-            }
-          })
-          .catch(function(err) {
-            console.log("连接错误" + err);
-          });
-      } else if (this.xz3 === true) {
-        this.$http
-          .get(`pc/task/list`, {
-            params: {
-              tab: 1,
-              size: this.sizes,
-              keyWord: this.search1,
-              QueryDate: this.value1
-            }
-          })
-          .then(res => {
-            var { code, data } = res.data;
-            if (code === 1000) {
-              this.tableData = data.content;
-              this.total = data.total;
-              this.tableData.forEach(item => {
-                item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
-                item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
-                // item.cj = item.collectList[0].scencesName
-                if (item.collectList[0] === undefined) {
-                  console.log(1);
-                } else {
-                  // console.log(item.collectList[0])
-                  item.cj = item.collectList[0].scencesName;
-                }
-              });
-            } else if (code == 2001) {
-              this.$message.error(res.data.message);
-              window.sessionStorage.clear();
-              window.localStorage.clear();
-              this.$router.push("/");
-            } else {
-              this.$message.error(res.data.message);
-            }
-          })
-          .catch(function(err) {
-            console.log("连接错误" + err);
-          });
-      } else if (this.xz5 === true) {
-        this.$http
-          .get(`pc/task/list`, {
-            params: {
-              tab: 2,
-              size: this.sizes,
-              keyWord: this.search1,
-              QueryDate: this.value1
-            }
-          })
-          .then(res => {
-            var { code, data } = res.data;
-            if (code === 1000) {
-              this.tableData = data.content;
-              this.total = data.total;
-              this.tableData.forEach(item => {
-                item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
-                item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
-                // item.cj = item.collectList[0].scencesName
-                if (item.collectList[0] === undefined) {
-                  console.log(1);
-                } else {
-                  // console.log(item.collectList[0])
-                  item.cj = item.collectList[0].scencesName;
-                }
-              });
-            } else if (code == 2001) {
-              this.$message.error(res.data.message);
-              window.sessionStorage.clear();
-              window.localStorage.clear();
-              this.$router.push("/");
-            } else {
-              this.$message.error(res.data.message);
-            }
-          })
-          .catch(function(err) {
-            console.log("连接错误" + err);
-          });
-      } else if (this.xz7 === true) {
-        this.$http
-          .get(`pc/task/list`, {
-            params: {
-              tab: 3,
-              size: this.sizes,
-              keyWord: this.search1,
-              QueryDate: this.value1
-            }
-          })
-          .then(res => {
-            var { code, data } = res.data;
-            if (code === 1000) {
-              this.tableData = data.content;
-              this.total = data.total;
-              this.tableData.forEach(item => {
-                item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
-                item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
-                // item.cj = item.collectList[0].scencesName
-                if (item.collectList[0] === undefined) {
-                  console.log(1);
-                } else {
-                  // console.log(item.collectList[0])
-                  item.cj = item.collectList[0].scencesName;
-                }
-              });
-            } else if (code == 2001) {
-              this.$message.error(res.data.message);
-              window.sessionStorage.clear();
-              window.localStorage.clear();
-              this.$router.push("/");
-            } else {
-              this.$message.error(res.data.message);
-            }
-          })
-          .catch(function(err) {
-            console.log("连接错误" + err);
-          });
-      } else if (this.xz9 === true) {
-        this.$http
-          .get(`pc/task/list`, {
-            params: {
-              tab: 4,
-              size: this.sizes,
-              keyWord: this.search1,
-              QueryDate: this.value1
-            }
-          })
-          .then(res => {
-            var { code, data } = res.data;
-            if (code === 1000) {
-              this.tableData = data.content;
-              this.total = data.total;
-              this.tableData.forEach(item => {
-                item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
-                item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
-                // item.cj = item.collectList[0].scencesName
-                if (item.collectList[0] === undefined) {
-                  console.log(1);
-                } else {
-                  // console.log(item.collectList[0])
-                  item.cj = item.collectList[0].scencesName;
-                }
-              });
-            } else if (code == 2001) {
-              this.$message.error(res.data.message);
-              window.sessionStorage.clear();
-              window.localStorage.clear();
-              this.$router.push("/");
-            } else {
-              this.$message.error(res.data.message);
-            }
-          })
-          .catch(function(err) {
-            console.log("连接错误" + err);
-          });
-      }
-    },
     // 详情页面
     point(index, row) {
       let id = row.id;
@@ -1665,9 +1417,10 @@ export default {
     handleSizeChange(val) {
       this.sizes = val;
       this.$http
-        .get(`pc/task/list`, {
+        .get(`pc/task/exhibitionList`, {
           params: {
             tab: 0,
+            type:2,
             size: val
           }
         })
@@ -1704,9 +1457,10 @@ export default {
       this.pages = val;
       if (this.xz1 === true) {
         this.$http
-          .get(`pc/task/list`, {
+          .get(`pc/task/exhibitionList`, {
             params: {
               tab: 0,
+              type:2,
               size: this.sizes,
               page: val - 1
             }
@@ -1740,9 +1494,10 @@ export default {
           });
       } else if (this.xz3 === true) {
         this.$http
-          .get(`pc/task/list`, {
+          .get(`pc/task/exhibitionList`, {
             params: {
               tab: 1,
+              type:2,
               size: this.sizes,
               page: val - 1
             }
@@ -1776,9 +1531,10 @@ export default {
           });
       } else if (this.xz5 === true) {
         this.$http
-          .get(`pc/task/list`, {
+          .get(`pc/task/exhibitionList`, {
             params: {
               tab: 2,
+              type:2,
               size: this.sizes,
               page: val - 1
             }
@@ -1812,9 +1568,10 @@ export default {
           });
       } else if (this.xz7 === true) {
         this.$http
-          .get(`pc/task/list`, {
+          .get(`pc/task/exhibitionList`, {
             params: {
               tab: 3,
+              type:2,
               size: this.sizes,
               page: val - 1
             }
@@ -1848,9 +1605,10 @@ export default {
           });
       } else if (this.xz9 === true) {
         this.$http
-          .get(`pc/task/list`, {
+          .get(`pc/task/exhibitionList`, {
             params: {
               tab: 4,
+              type:2,
               size: this.sizes,
               page: val - 1
             }
@@ -2460,61 +2218,63 @@ export default {
         });
     },
     queding() {
-      this.$confirm("是否确定提交订购数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          let info = {
-            name: this.formname,
-            buyAmount: this.buyAmount,
-            ids: this.ids,
-            taskIds: this.id,
-            buyPrice: this.dgmoney,
-            gender: this.jzdd,
-            agebin: this.age,
-            occupation: this.zy,
-            workplaceProvince: this.workplace[0],
-            workplaceCity: this.workplace[1],
-            residenceProvince: this.placeofresidence[0],
-            residenceCity: this.placeofresidence[1],
-            startDate: this.sdata[0],
-            endDate: this.sdata[1]
-          };
-          if (this.refer === true) {
-            this.$message.error("订购数量输入有误,请重新输入");
-          } else {
-            this.$http
-              .post(`pc/task/orderData`, info)
-              .then(res => {
-                var { code, data } = res.data;
-                if (code === 1000) {
-                  this.$message({
-                    type: "success",
-                    message: "提交成功!"
-                  });
-                } else if (code == 2001) {
-                  this.$message.error(res.data.message);
-                  window.sessionStorage.clear();
-                  window.localStorage.clear();
-                  this.$router.push("/");
-                } else {
-                  this.$message.error(res.data.message);
-                }
-              })
-              .catch(function(err) {
-                console.log("错误信息" + err);
-              });
-            this.dgdata = false;
-          }
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消"
-          });
-        });
+      this.$message.error('当前是展示平台，如需订购数据请联系管理员');
+      this.dgdata = false;
+      // this.$confirm("是否确定提交订购数据, 是否继续?", "提示", {
+      //   confirmButtonText: "确定",
+      //   cancelButtonText: "取消",
+      //   type: "warning"
+      // })
+      //   .then(() => {
+      //     let info = {
+      //       name: this.formname,
+      //       buyAmount: this.buyAmount,
+      //       ids: this.ids,
+      //       taskIds: this.id,
+      //       buyPrice: this.dgmoney,
+      //       gender: this.jzdd,
+      //       agebin: this.age,
+      //       occupation: this.zy,
+      //       workplaceProvince: this.workplace[0],
+      //       workplaceCity: this.workplace[1],
+      //       residenceProvince: this.placeofresidence[0],
+      //       residenceCity: this.placeofresidence[1],
+      //       startDate: this.sdata[0],
+      //       endDate: this.sdata[1]
+      //     };
+      //     if (this.refer === true) {
+      //       this.$message.error("订购数量输入有误,请重新输入");
+      //     } else {
+      //       this.$http
+      //         .post(`pc/task/orderData`, info)
+      //         .then(res => {
+      //           var { code, data } = res.data;
+      //           if (code === 1000) {
+      //             this.$message({
+      //               type: "success",
+      //               message: "提交成功!"
+      //             });
+      //           } else if (code == 2001) {
+      //             this.$message.error(res.data.message);
+      //             window.sessionStorage.clear();
+      //             window.localStorage.clear();
+      //             this.$router.push("/");
+      //           } else {
+      //             this.$message.error(res.data.message);
+      //           }
+      //         })
+      //         .catch(function(err) {
+      //           console.log("错误信息" + err);
+      //         });
+      //       this.dgdata = false;
+      //     }
+      //   })
+      //   .catch(() => {
+      //     this.$message({
+      //       type: "info",
+      //       message: "已取消"
+      //     });
+      //   });
     },
     define() {},
     cancel() {

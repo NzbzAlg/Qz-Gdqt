@@ -112,7 +112,7 @@ export default {
           'dateStr4end': this.value1[1]
         }
       }).then(res => {
-         let filePath = res.data.data.path
+        let filePath = res.data.data.path
         let fileName = res.data.data.fileName
         // console.log(res.res.filePath)
         window.location.href =  `http://47.105.207.228:8874/pc/fixedPortrait/export/fixed?filePath=${filePath}&fileName=${fileName}`
