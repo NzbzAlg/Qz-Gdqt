@@ -58,7 +58,7 @@
             @mouseover="geren"
             @mouseout="yh"
             :class="$style.f_name"
-            v-if="proxyType!=7"
+            v-if="proxyType!=7&proxyType!=8&proxyType!=9"
           ></i>
           <ul class="user" v-show="dh===true" @mouseover="jiben" @mouseout="xinxi" style="right:6%;">
             <li class="yhxx" @click="jibenxinxi">基本信息</li>
@@ -70,7 +70,7 @@
           <!-- <el-badge v-if="num===0" style="vertical-align: top;">
             <i class="iconfont iconxiaoxi"></i>
           </el-badge> -->
-          <i class="iconfont icon3" :class="$style.f_name" @mouseover="geren1" @mouseout="yh1" v-if="proxyType!=7"></i>
+          <i class="iconfont icon3" :class="$style.f_name" @mouseover="geren1" @mouseout="yh1" v-if="proxyType!=7&proxyType!=8&proxyType!=9"></i>
           <ul class="zc" v-show="dh1===true" @mouseover="jiben1" @mouseout="xinxi1" style="border-bottom:none">
             <!-- <li class="yhxx1" ref="zc1">资产合计{{heji}}</li> -->
             <!-- <li class="yhxx1" disabled>3000.000VKT</li>
@@ -131,6 +131,8 @@ export default {
             { name: '分组终端', path: '/index/groupinggl.vue', id: '12' },
           ]        },
         { name: "展会通 | 家装建材", path: "/index/exhibition.vue", id: "13" },
+        { name: "展会通 | 孕婴童", path: "/index/childrenShow.vue", id: "14" },
+        { name: "展会通 | 教育行业", path: "/index/educationFair.vue", id: "15" },
       ],
       list: JSON.parse(window.sessionStorage.getItem('data')),
       info: JSON.parse(window.sessionStorage.getItem("info")),

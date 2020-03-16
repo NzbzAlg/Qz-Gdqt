@@ -8,7 +8,7 @@
         <el-input placeholder="请输入内容" v-model="missionname" :class="$style.f_inpt" clearable 
           style="width: calc(47%); margin-top:20px;"
         ></el-input>
-        <p :class="$style.f_rwmc" style="padding-left:2.5%;">辐射半径</p>
+        <p :class="$style.f_rwmc" style="padding-left:2.5%;">映射半径</p>
         <el-select v-model="distance" clearable placeholder="请选择" style="margin-right:115px;margin-left:10px; width: calc(18.2%);">
           <el-option
             v-for="item in collection"
@@ -389,8 +389,12 @@ export default {
           label: '20米'
         },
         {
+          value: '50',
+          label: '50米'
+        },
+        {
           value: '500',
-          label: '20+'
+          label: '50+'
         },
       ],
       collectionlocation: [],

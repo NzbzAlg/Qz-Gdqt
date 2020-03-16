@@ -1227,20 +1227,6 @@ export default {
             this.datatype = 2
           }
         })
-        // let info = {
-        //   'name': this.missionname,
-        //   'TaskCollectType': this.datatype,
-        //   'radius': this.distance,
-        //   'fromDate': this.collectiondate[0],
-        //   'toDate': this.collectiondate[1],
-        //   'fromTime': starttime,
-        //   'toTime': endtiem,
-        //   'remarks': this.textarea2,
-        //   'beans': this.beanse,
-        //   'price':this.single,
-        //   'amountCount':this.datanum,
-        //   'file': this.url1[0]
-        // }
         console.log(this.beanse)
         let info = new FormData()
         info.append('name', this.missionname)

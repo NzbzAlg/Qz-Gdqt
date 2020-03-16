@@ -11,10 +11,10 @@
         >Tsingzou&nbsp;&nbsp;Data</h1>
         <div class="dl">
           <div style="height: 109px;">
-            <div style="height: 50px;">
-              <transition>
+            <div style="height: 35px;">
+              <!-- <transition>
                 <p class="denglu" v-show="bac">用户名</p>
-              </transition>
+              </transition> -->
             </div>
             <input
               type="text"
@@ -26,11 +26,11 @@
             />
             <p class="yanzheng" v-show="user1">请输入正确的账号</p>
           </div>
-          <div style="height: 109px;">
-            <div style="height: 50px;">
-              <transition>
+          <div style="height: 75px;">
+            <div style="">
+              <!-- <transition>
                 <p class="denglu" v-show="bac1">密码</p>
-              </transition>
+              </transition> -->
             </div>
             <input
               type="password"
@@ -63,16 +63,24 @@
                 v-model="code"
                 class="code"
                 placeholder="请输入您的验证码"
-                style="background:#fff"
+                style="background:#fff;width:85%"
               />
             </div>
-            <div class="login-code" @click="refreshCode">
+            <div class="login-code" @click="refreshCode" style="margin-left:20px">
               <!--验证码组件-->
               <s-identify :identifyCode="identifyCode"></s-identify>
               <span style="color:#fff;cursor: pointer;">看不清，换一张</span>
             </div>
           </div>
           <span class="btn1" @click="denglu">登录</span>
+          <span class="btn2" @click="visitor">访客登录</span>
+          <!-- <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br> -->
+          <p style="  position: absolute;bottom:-70px;left:11%;font-size:20px;color:#fff">展会通——助力企业塑造品牌精准招商</p>
         </div>
       </div>
     </div>
@@ -119,6 +127,10 @@ export default {
     this.refreshCode();
   },
   methods: {
+    visitor(){
+      console.log(this)
+      this.$router.push("/visitor");
+    },
     denglu() {
       let md = this.$md5(this.input1);
       if (this.code === "") {
@@ -133,13 +145,12 @@ export default {
         return;
       }
       this.$http
-        .post(`pc/user/login`, { username: this.input, password: md })
-        .then(res => {
+        .post(`pc/user/login`, { username: this.input, password: md }).then(res => {
           var { code, data } = res.data;
           if (code === 1000) {
             this.Message = data.Message;
             this.proxyType = data.merchant.proxyType;
-            if (this.proxyType != 7) {
+            if (this.proxyType === 1 ||this.proxyType === 2 ||this.proxyType === 3||this.proxyType === 4 ||this.proxyType === 5||this.proxyType === 6) {
               if (this.Message === null) {
                 let token = res.headers.api_token;
                 window.sessionStorage.setItem("token", token);
@@ -149,54 +160,23 @@ export default {
                 );
                 this.$store.commit("myval1", this.btname);
                 this.$store.commit("updateUserInfo", data);
-                let arr = [
-                  "0",
-                  "1",
-                  "2",
-                  "3",
-                  "4",
-                  "5",
-                  "6",
-                  "7",
-                  "8",
-                  "9",
-                  "10",
-                  "11",
-                  "12"
-                ];
+                let arr = ["0","1","2","3","4","5","6","7","8","9","10","11","12"];
                 window.sessionStorage.setItem("data", JSON.stringify(arr));
                 // console.log(JSON.stringify(arr))
                 this.$router.push("./index/indexx.vue");
               } else {
                 let token = res.headers.api_token;
                 window.sessionStorage.setItem("token", token);
-                window.sessionStorage.setItem(
-                  "info",
-                  JSON.stringify(data.user)
-                );
+                window.sessionStorage.setItem("info",JSON.stringify(data.user));
                 this.$store.commit("myval1", this.btname);
                 this.$store.commit("updateUserInfo", data);
-                let arr = [
-                  "0",
-                  "1",
-                  "2",
-                  "3",
-                  "4",
-                  "5",
-                  "6",
-                  "7",
-                  "8",
-                  "9",
-                  "10",
-                  "11",
-                  "12"
-                ];
+                let arr = ["0","1","2","3","4","5","6","7","8","9","10","11","12"];
                 window.sessionStorage.setItem("data", JSON.stringify(arr));
                 // console.log(JSON.stringify(arr))
                 this.$router.push("./index/indexx.vue");
                 this.$message.error(this.Message);
               }
-            } else {
+            } else if(this.proxyType === 7) {
               let token = res.headers.api_token;
               window.sessionStorage.setItem("token", token);
               window.sessionStorage.setItem("info", JSON.stringify(data.user));
@@ -206,6 +186,28 @@ export default {
               window.sessionStorage.setItem("data", JSON.stringify(arr));
               // console.log(JSON.stringify(arr))
               this.$router.push("./index/exhibition.vue");
+              this.$message.error(this.Message);
+            }else if(this.proxyType === 8) {
+              let token = res.headers.api_token;
+              window.sessionStorage.setItem("token", token);
+              window.sessionStorage.setItem("info", JSON.stringify(data.user));
+              this.$store.commit("myval1", this.btname1);
+              this.$store.commit("updateUserInfo", data);
+              let arr = ["14"];
+              window.sessionStorage.setItem("data", JSON.stringify(arr));
+              // console.log(JSON.stringify(arr))
+              this.$router.push("./index/childrenShow.vue");
+              this.$message.error(this.Message);
+            }else if(this.proxyType === 9) {
+              let token = res.headers.api_token;
+              window.sessionStorage.setItem("token", token);
+              window.sessionStorage.setItem("info", JSON.stringify(data.user));
+              this.$store.commit("myval1", this.btname1);
+              this.$store.commit("updateUserInfo", data);
+              let arr = ["15"];
+              window.sessionStorage.setItem("data", JSON.stringify(arr));
+              // console.log(JSON.stringify(arr))
+              this.$router.push("./index/educationFair.vue");
               this.$message.error(this.Message);
             }
           } else {
@@ -328,17 +330,18 @@ export default {
 
 <style >
 .code {
-  margin-left: 35px;
+  margin-left: 43px;
   background: #fff;
 }
 .f_bj {
   position: relative;
   height: 100%;
   margin: 0 auto;
-  background: -webkit-linear-gradient(#321555, #6101ab);
-  background: -o-linear-gradient(#321555, #6101ab);
-  background: -moz-linear-gradient(#321555, #6101ab);
-  background: linear-gradient(#321555, #6101ab);
+  /* background: -webkit-linear-gradient(#321555, #0193de);
+  background: -o-linear-gradient(#321555, #0193de);
+  background: -moz-linear-gradient(#321555, #0193de);
+  background: linear-gradient(#321555, #0193de); */
+  background:linear-gradient(0deg,rgba(169,75,235,1),rgba(25,123,213,1),rgba(44,36,101,1));
 }
 .f_bj .bj {
   height: 100%;
@@ -347,7 +350,7 @@ export default {
   width: 432px;
   height: 422px;
   position: absolute;
-  margin-top: -211px;
+  margin-top: -245px;
   margin-left: -216px;
   left: 50%;
   top: 50%;
@@ -362,24 +365,25 @@ export default {
   color: #ccaedf;
 }
 .f_bj .bj .content .dl input {
+  border-radius:4px;
   line-height: 40px;
   width: 80%;
   border: none;
-  background: #462178;
+  /* background: #0193de; */
   font-size: 18px;
   color: #ccaedf;
   letter-spacing: 0;
-  border-bottom: 1px solid #7a5096;
+  /* border-bottom: 1px solid #0193de; */
 }
 .f_bj .bj .content .dl .f_mima {
   line-height: 40px;
   width: 80%;
   border: none;
-  background: #4d2584;
+  /* background: #0193de; */
   font-size: 18px;
   color: #ccaedf;
   letter-spacing: 0;
-  border-bottom: 1px solid #7a5096;
+  /* border-bottom: 1px solid #0193de; */
 }
 .f_bj .bj .content .dl input:focus {
   outline: none;
@@ -444,20 +448,36 @@ export default {
 }
 .btn1 {
   margin-top: 20px;
-  width: 80%;
+  width: 40%;
   border: none;
-  background: #a662d2;
+  background: #04a9fe;
   border-radius: 4px;
-  color: #fff;
+  color: #FFFEFE;
   cursor: pointer;
   display: inline-block;
   height: 40px;
   line-height: 40px;
 }
 .btn1:hover {
-  background: #a662d2;
+  background: #65c9fd;
   color: #fff;
 }
+.btn2 {
+  margin-top: 20px;
+  width: 40%;
+  border: none;
+  background: #cfeaf7;
+  border-radius: 4px;
+  color: #04A9FE;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+}
+/* .btn2:hover {
+  background: #65c9fd;
+  color: #fff;
+} */
 .v-enter,
 .v-leave-to {
   opacity: 0;

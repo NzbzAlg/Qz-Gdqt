@@ -5,7 +5,7 @@
       <div :class="$style.f_row">
         <div :class="{'f_fy':xz,'f_fy1':xz1}" @click="qb" style="width:100px">展会数据列表</div>
         <div style="float:right;display:inline-block;margin-right: 14px;">
-          <div :class="$style.f_btn" @click="orderdata">选择数据</div>
+          <div :class="$style.f_btn" @click="orderdata">订购数据</div>
         </div>
       </div>
       <!-- <router-view></router-view> -->
@@ -31,10 +31,10 @@
           <el-table-column prop="date" align="center" sortable label="构建日期"></el-table-column>
           <el-table-column prop="time" align="center" sortable label="构建时间" width="105"></el-table-column>
           <el-table-column prop="data_num" align="center" label="数据量" width="90">
-           
+            
             <template slot-scope="scope">
               <span
-                 @click="addresslist(scope.$index, scope.row)"
+                @click="addresslist(scope.$index, scope.row)"
                 :class="$style.f_ycsj"
               >{{scope.row.data_num}}</span>
             </template>
@@ -74,7 +74,7 @@
                   </template>
                 </el-table-column>
                 <el-table-column prop="crowd" align="center" label="人群标签"></el-table-column>
-                <el-table-column prop="scencesName" align="center" label="场景名称"></el-table-column>
+                <el-table-column prop="collectionSite" align="center" label="采集场地"></el-table-column>
               </el-table>
             </template>
           </el-table-column>
@@ -83,8 +83,8 @@
             <template slot-scope="scope">
               <span v-if="scope.row.platformTask===null">自建任务</span>
               <span v-if="scope.row.platformTask!==null">平台任务</span>
-            </template> -->
-          </el-table-column>
+            </template>
+          </el-table-column> -->
           <el-table-column align="center" label="状态" width="80">
             <template slot-scope="scope">
               <span
@@ -119,9 +119,6 @@
               </span>
             </template>
           </el-table-column>
-          <!-- <el-table-column label="编辑" width="80" align="center">
-            <el-button>编辑</el-button>
-          </el-table-column>-->
         </el-table>
       </div>
       <!-- 分页 -->
@@ -145,9 +142,9 @@
           width="55%"
           :before-close="handleClose"
         >
+        <!-- <span>任务名称</span> -->
           <p style="padding:0 0 0 0">任务名称：{{renwuname}}</p>
           <p style="padding:0 0 0 0">上传时间：{{fromDate}}-{{toDate}}</p>
-
           <!-- <el-select
             v-model="value3"
             style="width:26%"
@@ -297,8 +294,8 @@
               ></el-option>
             </el-select>
           </div>
-        </div>
-        <div :class="$style.f_hxrow">
+        </div> -->
+        <!-- <div :class="$style.f_hxrow">
           <div style="line-height: 40px;margin-left:9%;display: inline-block;" :span="2">
             <span>工作地点:</span>
           </div>
@@ -576,6 +573,7 @@ export default {
       refer: false,
       list: null,
       riqi: "",
+      // renwuname:[],
       renwuname:'',
       fromDate:'',
       toDate:''
@@ -584,7 +582,7 @@ export default {
   mounted() {
     this.getTask();
     this.qb();
-    // this.buttons()
+    // this.getrenwu()
   },
   methods: {
     dgdatas() {
@@ -691,7 +689,7 @@ export default {
         .get(`pc/task/exhibitionList`, {
           params: {
             tab: 0,
-            type:2,
+            type:8,
             size: this.sizes
           }
         })
@@ -700,6 +698,7 @@ export default {
           if (code === 1000) {
             this.total = data.total;
             this.tableData = data.content;
+            console.log('sss',this.tableData)
             this.tableData.forEach(item => {
               item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
               item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
@@ -721,12 +720,13 @@ export default {
           console.log("连接错误" + err);
         });
     },
+
     dj(row) {
       if (row.collectList === []) {
         console.log(1);
       } else {
         this.tableData1 = row.collectList;
-        console.log(this.tableData1);
+        console.log('aaa',this.tableData1);
       }
     },
     // 详情页面
@@ -744,7 +744,7 @@ export default {
         .get(`pc/task/exhibitionList`, {
           params: {
             tab: 0,
-            type:2,
+            type:8,
             size: val
           }
         })
@@ -779,11 +779,12 @@ export default {
     },
     handleCurrentChange(val) {
       this.pages = val;
+      if (this.xz1 === true) {
         this.$http
           .get(`pc/task/exhibitionList`, {
             params: {
               tab: 0,
-              type:2,
+              type:8,
               size: this.sizes,
               page: val - 1
             }
@@ -815,43 +816,8 @@ export default {
           .catch(function(err) {
             console.log("连接错误" + err);
           });
+      }
     },
-    // 订购画像
-    // orderikion() {
-    //   console.log(this.searchId);
-    //   let ids = this.searchId.join(",");
-    //   console.log(ids);
-    //   if (ids === "") {
-    //     this.$message.error("请先选择需要订购的画像");
-    //   } else {
-    //     let info = {
-    //       ids: ids,
-    //       type: 2
-    //     };
-    //     this.$http
-    //       .post(`pc/task/exhibitionOrderInit`, info)
-    //       .then(res => {
-    //         var { code, data } = res.data;
-    //         if (code === 1000) {
-    //           console.log(data);
-    //           this.ordername = data.name;
-    //           this.moeny = data.personaPrice;
-    //           this.ysjl = data.dataCount;
-    //         } else if (code == 2001) {
-    //           this.$message.error(res.data.message);
-    //           window.sessionStorage.clear();
-    //           window.localStorage.clear();
-    //           this.$router.push("/");
-    //         } else {
-    //           this.$message.error(res.data.message);
-    //         }
-    //       })
-    //       .catch(err => {
-    //         console.log("错误信息" + err);
-    //       });
-    //     this.ikon = true;
-    //   }
-    // },
     // 订购数据
     orderdata() {
       let ids = this.searchId.join(",");
@@ -921,6 +887,10 @@ export default {
       }
     },
     // 计算金额
+    // else if (this.riqi < this.buyAmount) {
+    //     this.$message.error("需要选择日期购买数据");
+    //     this.refer = true;
+      // } 
     cipher() {
       if (this.ysjl1 < this.buyAmount) {
         this.$message.error("订购数量大于源数据量,请重新输入");
@@ -1042,6 +1012,7 @@ export default {
           if (code == 1000) {
             this.tableDataaspect = data.content;
             this.totals = data.total;
+            // console.log('s',this.tableDataaspect)
             this.tableDataaspect.forEach(item => {
               let mac = item.mac;
               var a = mac.split(""); //将a字符串转换成数组

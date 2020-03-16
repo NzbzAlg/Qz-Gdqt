@@ -143,7 +143,9 @@ export default {
 //     },
     getList () {
       this.$http.get(`pc/fixedPortrait/selectUserScore`,{params:{
-        taskId:this.id
+        taskId:1,
+        dateStr4Start: this.value1[0],
+        dateStr4end: this.value1[1]
       }}).then(res => {
         var { code, data } = res.data
         if (code === 1000) {

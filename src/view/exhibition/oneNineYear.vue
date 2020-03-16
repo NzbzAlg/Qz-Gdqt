@@ -2,25 +2,12 @@
   <div :class="$style.f_bj">
     <!-- 表格 -->
     <div :class="$style.f_table">
-      <!-- <p style="display:inline-block;">任务列表</p> -->
-      <!-- <div
-        :class="$style.f_btn"
-        @click="cjrw"
-        style="float: right; vertical-align: top; margin: 80px -12px; margin-right: 21px; margin-bottom: 0px;"
-      >创建任务</div> -->
       <div :class="$style.f_row">
-        <div :class="{'f_fy':xz,'f_fy1':xz1}" @click="qb">数据</div>
-        <!-- <div :class="{'f_fy':xz2,'f_fy1':xz3}" @click="ywc">已完成</div>
-        <div :class="{'f_fy':xz4,'f_fy1':xz5}" @click="wwc">未完成</div>
-        <div :class="{'f_fy':xz6,'f_fy1':xz7}" @click="zzrw">自建任务</div>
-        <div :class="{'f_fy':xz8,'f_fy1':xz9}" @click="ptrw">平台任务</div> -->
+        <div :class="{'f_fy':xz,'f_fy1':xz1}" @click="qb" style="width:100px">展会数据列表</div>
         <div style="float:right;display:inline-block;margin-right: 14px;">
-          <!-- <div :class="$style.f_btn" @click="orderikion">订购画像</div> -->
-          <div :class="$style.f_btn" @click="orderdata">订购数据</div>
+          <div :class="$style.f_btn" @click="orderdata">选择数据</div>
         </div>
-        <!-- <div :class="$style.f_btns" @click="complementary">确权补充机制</div> -->
       </div>
-      <!-- <router-view></router-view> -->
       <!-- 全部 -->
       <div v-show="xz1===true" :class="$style.f_bgnr">
         <el-table
@@ -33,8 +20,9 @@
           <el-table-column type="selection" align="center" width="50"></el-table-column>
           <el-table-column sortable prop="code" align="center" label="任务编号" width="120">
             <template slot-scope="scope">
+             
               <span
-                @click="point(scope.$index, scope.row)"
+                 @click="point(scope.$index, scope.row)"
                 :class="$style.f_point"
               >{{scope.row.code}}</span>
             </template>
@@ -43,10 +31,11 @@
           <el-table-column prop="date" align="center" sortable label="构建日期"></el-table-column>
           <el-table-column prop="time" align="center" sortable label="构建时间" width="105"></el-table-column>
           <el-table-column prop="data_num" align="center" label="数据量" width="90">
+           
             <template slot-scope="scope">
               <span
-                @click="addresslist(scope.$index, scope.row)"
-                :class="$style.f_ycsj"
+               @click="addresslist(scope.$index, scope.row)"
+                :class="$style.f_ycsj"  
               >{{scope.row.data_num}}</span>
             </template>
           </el-table-column>
@@ -89,13 +78,13 @@
               </el-table>
             </template>
           </el-table-column>
-          <el-table-column prop="cj" align="left" label="场景" width="105"></el-table-column>
-          <el-table-column align="center" label="任务类型" width="90">
+          <el-table-column prop="cj" align="left" label="场景名称" width="105"></el-table-column>
+          <!-- <el-table-column align="center" label="任务类型" width="90">
             <template slot-scope="scope">
               <span v-if="scope.row.platformTask===null">自建任务</span>
               <span v-if="scope.row.platformTask!==null">平台任务</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column align="center" label="状态" width="80">
             <template slot-scope="scope">
               <span
@@ -135,450 +124,6 @@
           </el-table-column>-->
         </el-table>
       </div>
-      <!-- 已完成 -->
-      <div v-show="xz3===true" :class="$style.f_bgnr">
-        <el-table
-          :data="tableData"
-          border
-          style="width: 100%"
-          @select="handleSelectionChange"
-          @expand-change="dj"
-        >
-          <el-table-column type="selection" align="center" width="50"></el-table-column>
-          <el-table-column sortable prop="code" align="center" label="任务编号" width="120">
-            <template slot-scope="scope">
-              <span
-                @click="point(scope.$index, scope.row)"
-                :class="$style.f_point"
-              >{{scope.row.code}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="name" align="center" label="任务名称" width="180"></el-table-column>
-          <el-table-column prop="date" align="center" sortable label="构建日期"></el-table-column>
-          <el-table-column prop="time" align="center" sortable label="构建时间" width="105"></el-table-column>
-          <el-table-column prop="data_num" align="center" label="数据量" width="90">
-            <template slot-scope="scope">
-              <span
-                @click="addresslist(scope.$index, scope.row)"
-                :class="$style.f_ycsj"
-              >{{scope.row.data_num}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column type="expand">
-            <template slot-scope="scope">
-              <el-table :data="tableData1" border style="width: 100%">
-                <el-table-column align="center" label="采集点" width="180">
-                  <template slot-scope="scope">
-                    <span>{{scope.row.city}}/{{scope.row.province}}/{{scope.row.area}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="type" align="center" label="数据类型" width="180">
-                  <template slot-scope="scope">
-                    <span v-if="scope.row.type==='1'">区域类型</span>
-                    <span v-if="scope.row.type==='2'">行业类型</span>
-                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="行业/区">
-                  <template slot-scope="scope">
-                    <span
-                      v-if="scope.row.type==='1'"
-                    >{{scope.row.regionParent}}/{{scope.row.region}}</span>
-                    <span
-                      v-if="scope.row.type==='2'"
-                    >{{scope.row.industryTypeParent}}/{{scope.row.industry}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="细分">
-                  <template slot-scope="scope">
-                    <span
-                      v-if="scope.row.type==='1'"
-                    >{{scope.row.regionTypeParent}}/{{scope.row.regionType}}</span>
-                    <span
-                      v-if="scope.row.type==='2'"
-                    >{{scope.row.industryTypeParent}}/{{scope.row.industry}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="crowd" align="center" label="人群标签"></el-table-column>
-                <el-table-column prop="scencesName" align="center" label="场景名称"></el-table-column>
-              </el-table>
-            </template>
-          </el-table-column>
-          <el-table-column prop="cj" align="left" label="场景" width="105"></el-table-column>
-          <el-table-column align="center" label="任务类型" width="90">
-            <template slot-scope="scope">
-              <span v-if="scope.row.platformTask===null">自建任务</span>
-              <span v-if="scope.row.platformTask!==null">平台任务</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="状态" width="80">
-            <template slot-scope="scope">
-              <span
-                v-if="scope.row.status===0"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jinxing"></i>待上传
-              </span>
-              <span
-                v-if="scope.row.status===1"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jinxing"></i>进行中
-              </span>
-              <span
-                v-if="scope.row.status===2"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jieshu"></i>已结束
-              </span>
-              <span
-                v-if="scope.row.status===3"
-                style="font-size: 14px;  letter-spacing: 0; text-align: center;"
-              >
-                <i class="quxiao"></i>已取消
-              </span>
-              <span
-                v-if="scope.row.status===4"
-                style="font-size: 14px;  letter-spacing: 0; text-align: center;"
-              >
-                <i class="zanting"></i>失效
-              </span>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-      <!-- 未完成 -->
-      <div v-show="xz5===true" :class="$style.f_bgnr">
-        <el-table
-          :data="tableData"
-          border
-          style="width: 100%"
-          @select="handleSelectionChange"
-          @expand-change="dj"
-        >
-          <el-table-column type="selection" align="center" width="50"></el-table-column>
-          <el-table-column sortable prop="code" align="center" label="任务编号" width="120">
-            <template slot-scope="scope">
-              <span
-                @click="point(scope.$index, scope.row)"
-                :class="$style.f_point"
-              >{{scope.row.code}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="name" align="center" label="任务名称" width="180"></el-table-column>
-          <el-table-column prop="date" align="center" sortable label="构建日期"></el-table-column>
-          <el-table-column prop="time" align="center" sortable label="构建时间" width="105"></el-table-column>
-          <el-table-column prop="data_num" align="center" label="数据量" width="90">
-            <template slot-scope="scope">
-              <span
-                @click="addresslist(scope.$index, scope.row)"
-                :class="$style.f_ycsj"
-              >{{scope.row.data_num}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column type="expand">
-            <template slot-scope="scope">
-              <el-table :data="tableData1" border style="width: 100%">
-                <el-table-column align="center" label="采集点" width="180">
-                  <template slot-scope="scope">
-                    <span>{{scope.row.city}}/{{scope.row.province}}/{{scope.row.area}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="type" align="center" label="数据类型" width="180">
-                  <template slot-scope="scope">
-                    <span v-if="scope.row.type==='1'">区域类型</span>
-                    <span v-if="scope.row.type==='2'">行业类型</span>
-                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="行业/区">
-                  <template slot-scope="scope">
-                    <span
-                      v-if="scope.row.type==='1'"
-                    >{{scope.row.regionParent}}/{{scope.row.region}}</span>
-                    <span
-                      v-if="scope.row.type==='2'"
-                    >{{scope.row.industryTypeParent}}/{{scope.row.industry}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="细分">
-                  <template slot-scope="scope">
-                    <span
-                      v-if="scope.row.type==='1'"
-                    >{{scope.row.regionTypeParent}}/{{scope.row.regionType}}</span>
-                    <span
-                      v-if="scope.row.type==='2'"
-                    >{{scope.row.industryTypeParent}}/{{scope.row.industry}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="crowd" align="center" label="人群标签"></el-table-column>
-                <el-table-column prop="scencesName" align="center" label="场景名称"></el-table-column>
-              </el-table>
-            </template>
-          </el-table-column>
-          <el-table-column prop="cj" align="left" label="场景" width="105"></el-table-column>
-          <el-table-column align="center" label="任务类型" width="90">
-            <template slot-scope="scope">
-              <span v-if="scope.row.platformTask===null">自建任务</span>
-              <span v-if="scope.row.platformTask!==null">平台任务</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="状态" width="80">
-            <template slot-scope="scope">
-              <span
-                v-if="scope.row.status===0"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jinxing"></i>待上传
-              </span>
-              <span
-                v-if="scope.row.status===1"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jinxing"></i>进行中
-              </span>
-              <span
-                v-if="scope.row.status===2"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jieshu"></i>已结束
-              </span>
-              <span
-                v-if="scope.row.status===3"
-                style="font-size: 14px;  letter-spacing: 0; text-align: center;"
-              >
-                <i class="quxiao"></i>已取消
-              </span>
-              <span
-                v-if="scope.row.status===4"
-                style="font-size: 14px;  letter-spacing: 0; text-align: center;"
-              >
-                <i class="zanting"></i>失效
-              </span>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-      <!-- 自建任务 -->
-      <div v-show="xz7===true" :class="$style.f_bgnr">
-        <el-table
-          :data="tableData"
-          border
-          style="width: 100%"
-          @select="handleSelectionChange"
-          @expand-change="dj"
-        >
-          <el-table-column type="selection" align="center" width="50"></el-table-column>
-          <el-table-column sortable prop="code" align="center" label="任务编号" width="120">
-            <template slot-scope="scope">
-              <span
-                @click="point(scope.$index, scope.row)"
-                :class="$style.f_point"
-              >{{scope.row.code}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="name" align="center" label="任务名称" width="180"></el-table-column>
-          <el-table-column prop="date" align="center" sortable label="构建日期"></el-table-column>
-          <el-table-column prop="time" align="center" sortable label="构建时间" width="105"></el-table-column>
-          <el-table-column prop="data_num" align="center" label="数据量" width="90">
-            <template slot-scope="scope">
-              <span
-                @click="addresslist(scope.$index, scope.row)"
-                :class="$style.f_ycsj"
-              >{{scope.row.data_num}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column type="expand">
-            <template slot-scope="scope">
-              <el-table :data="tableData1" border style="width: 100%">
-                <el-table-column align="center" label="采集点" width="180">
-                  <template slot-scope="scope">
-                    <span>{{scope.row.city}}/{{scope.row.province}}/{{scope.row.area}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="type" align="center" label="数据类型" width="180">
-                  <template slot-scope="scope">
-                    <span v-if="scope.row.type==='1'">区域类型</span>
-                    <span v-if="scope.row.type==='2'">行业类型</span>
-                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="行业/区">
-                  <template slot-scope="scope">
-                    <span
-                      v-if="scope.row.type==='1'"
-                    >{{scope.row.regionParent}}/{{scope.row.region}}</span>
-                    <span
-                      v-if="scope.row.type==='2'"
-                    >{{scope.row.industryTypeParent}}/{{scope.row.industry}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="细分">
-                  <template slot-scope="scope">
-                    <span
-                      v-if="scope.row.type==='1'"
-                    >{{scope.row.regionTypeParent}}/{{scope.row.regionType}}</span>
-                    <span
-                      v-if="scope.row.type==='2'"
-                    >{{scope.row.industryTypeParent}}/{{scope.row.industry}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="crowd" align="center" label="人群标签"></el-table-column>
-                <el-table-column prop="scencesName" align="center" label="场景名称"></el-table-column>
-              </el-table>
-            </template>
-          </el-table-column>
-          <el-table-column prop="cj" align="left" label="场景" width="105"></el-table-column>
-          <el-table-column align="center" label="任务类型" width="90">
-            <template slot-scope="scope">
-              <span v-if="scope.row.platformTask===null">自建任务</span>
-              <span v-if="scope.row.platformTask!==null">平台任务</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="状态" width="80">
-            <template slot-scope="scope">
-              <span
-                v-if="scope.row.status===0"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jinxing"></i>待上传
-              </span>
-              <span
-                v-if="scope.row.status===1"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jinxing"></i>进行中
-              </span>
-              <span
-                v-if="scope.row.status===2"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jieshu"></i>已结束
-              </span>
-              <span
-                v-if="scope.row.status===3"
-                style="font-size: 14px;  letter-spacing: 0; text-align: center;"
-              >
-                <i class="quxiao"></i>已取消
-              </span>
-              <span
-                v-if="scope.row.status===4"
-                style="font-size: 14px;  letter-spacing: 0; text-align: center;"
-              >
-                <i class="zanting"></i>失效
-              </span>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-      <!-- 平台任务 -->
-      <div v-show="xz9===true" :class="$style.f_bgnr">
-        <el-table
-          :data="tableData"
-          border
-          style="width: 100%"
-          @select="handleSelectionChange"
-          @expand-change="dj"
-        >
-          <el-table-column type="selection" align="center" width="50"></el-table-column>
-          <el-table-column sortable prop="code" align="center" label="任务编号" width="120">
-            <template slot-scope="scope">
-              <span
-                @click="point(scope.$index, scope.row)"
-                :class="$style.f_point"
-              >{{scope.row.code}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="name" align="center" label="任务名称" width="180"></el-table-column>
-          <el-table-column prop="date" align="center" sortable label="构建日期"></el-table-column>
-          <el-table-column prop="time" align="center" sortable label="构建时间" width="105"></el-table-column>
-          <el-table-column prop="data_num" align="center" label="数据量" width="90">
-            <template slot-scope="scope">
-              <span
-                @click="addresslist(scope.$index, scope.row)"
-                :class="$style.f_ycsj"
-              >{{scope.row.data_num}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column type="expand">
-            <template slot-scope="scope">
-              <el-table :data="tableData1" border style="width: 100%">
-                <el-table-column align="center" label="采集点" width="180">
-                  <template slot-scope="scope">
-                    <span>{{scope.row.city}}/{{scope.row.province}}/{{scope.row.area}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="type" align="center" label="数据类型" width="180">
-                  <template slot-scope="scope">
-                    <span v-if="scope.row.type==='1'">区域类型</span>
-                    <span v-if="scope.row.type==='2'">行业类型</span>
-                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="行业/区">
-                  <template slot-scope="scope">
-                    <span
-                      v-if="scope.row.type==='1'"
-                    >{{scope.row.regionParent}}/{{scope.row.region}}</span>
-                    <span
-                      v-if="scope.row.type==='2'"
-                    >{{scope.row.industryTypeParent}}/{{scope.row.industry}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column align="center" label="细分">
-                  <template slot-scope="scope">
-                    <span
-                      v-if="scope.row.type==='1'"
-                    >{{scope.row.regionTypeParent}}/{{scope.row.regionType}}</span>
-                    <span
-                      v-if="scope.row.type==='2'"
-                    >{{scope.row.industryTypeParent}}/{{scope.row.industry}}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="crowd" align="center" label="人群标签"></el-table-column>
-                <el-table-column prop="scencesName" align="center" label="场景名称"></el-table-column>
-              </el-table>
-            </template>
-          </el-table-column>
-          <el-table-column prop="cj" align="left" label="场景" width="105"></el-table-column>
-          <el-table-column align="center" label="任务类型" width="90">
-            <template slot-scope="scope">
-              <span v-if="scope.row.platformTask===null">自建任务</span>
-              <span v-if="scope.row.platformTask!==null">平台任务</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" label="状态" width="80">
-            <template slot-scope="scope">
-              <span
-                v-if="scope.row.status===0"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jinxing"></i>待上传
-              </span>
-              <span
-                v-if="scope.row.status===1"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jinxing"></i>进行中
-              </span>
-              <span
-                v-if="scope.row.status===2"
-                style="font-size: 14px; letter-spacing: 0; text-align: center;"
-              >
-                <i class="jieshu"></i>已结束
-              </span>
-              <span
-                v-if="scope.row.status===3"
-                style="font-size: 14px;  letter-spacing: 0; text-align: center;"
-              >
-                <i class="quxiao"></i>已取消
-              </span>
-              <span
-                v-if="scope.row.status===4"
-                style="font-size: 14px;  letter-spacing: 0; text-align: center;"
-              >
-                <i class="zanting"></i>失效
-              </span>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
       <!-- 分页 -->
       <div style="text-align: right;margin-top:20px;padding-bottom: 20px;padding-right:10px;">
         <el-pagination
@@ -600,53 +145,19 @@
           width="55%"
           :before-close="handleClose"
         >
-          <el-select
-            v-model="value3"
-            style="width:26%"
-            @change="scenes"
-            clearable
-            placeholder="请选择场景位置"
-          >
-            <el-option
-              v-for="item in acquisitionscene"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            ></el-option>
-          </el-select>
-          <el-select
-            v-model="value2"
-            style="width:26%"
-            @change="ending"
-            clearable
-            placeholder="请选择终端编号"
-          >
-            <el-option
-              v-for="item in terminalnumber"
-              :key="item.id"
-              :label="item.code"
-              :value="item.code"
-            ></el-option>
-          </el-select>
-          <div :class="$style.f_sousuo">
-            <el-input placeholder="请输入内容" v-model="datasearch" style="width:60%;" clearable></el-input>
-            <span
-              @click="define"
-              style="display: inline-block; float:right;"
-              :class="$style.f_btn"
-            >搜索</span>
-          </div>
+        <div>任务名称:{{renwuname}}</div>
+        <div>数据上传时间：{{fromDate}}-{{toDate}}</div>
           <div :class="$style.f_sjbg">
             <el-table :data="tableDataaspect" border style="width: 100%">
               <el-table-column type="index" align="center" label="序号" width="50"></el-table-column>
-              <el-table-column prop="mac" align="center" label="数据" width="150"></el-table-column>
-              <el-table-column prop="gather_time" align="center" label="构建时间"></el-table-column>
+              <el-table-column prop="mac" align="center" label="数据"></el-table-column>
+              <!-- <el-table-column prop="gather_time" align="center" label="构建时间"></el-table-column> -->
               <el-table-column align="center" label="经纬度">
                 <template slot-scope="scope">
                   <span>{{scope.row.lat}}/{{scope.row.lng}}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="device_code" align="center" label="终端编号"></el-table-column>
+              <!-- <el-table-column prop="device_code" align="center" label="终端编号"></el-table-column> -->
             </el-table>
           </div>
           <!-- 分页 -->
@@ -667,40 +178,9 @@
     <div :class="$style.f_jz">
       <footerl />
     </div>
-    <!-- 订购画像 -->
-    <div class="f_dg">
-      <el-dialog title="订购画像" :visible.sync="ikon" width="30%" :before-close="gb">
-        <p :class="$style.f_jb">基本信息</p>
-        <el-row :class="$style.f_hxrow">
-          <span :class="$style.f_ddname">订单名称:</span>
-          <el-input placeholder="请输入内容" v-model="ordername" :class="$style.f_hxinpt" clearable></el-input>
-        </el-row>
-        <p :class="$style.f_sjxx">数据信息</p>
-        <el-row :class="$style.f_hxrow">
-          <span :class="$style.f_ddname">源数据量：</span>
-          <span :class="$style.f_ddname">{{ysjl}}</span>
-        </el-row>
-        <el-row :class="$style.f_hxrow">
-          <span :class="$style.f_ddname">订购金额：</span>
-          <span :class="$style.f_ddname">{{moeny}}VKT</span>
-        </el-row>
-        <p :class="$style.f_sjxx">订单备注</p>
-        <el-input
-          type="textarea"
-          :autosize="{ minRows: 2, maxRows: 4}"
-          placeholder="请输入内容"
-          style="margin-top:20px;"
-          v-model="textarea2"
-        ></el-input>
-        <span slot="footer" class="dialog-footer">
-          <span @click="ikon = false" style="display: inline-block;" :class="$style.f_btn">取消</span>
-          <span @click="determine" style="display: inline-block;" :class="$style.f_btn">确定</span>
-        </span>
-      </el-dialog>
-    </div>
     <!-- 订购数据 -->
     <div class="f_dgsj">
-      <el-dialog title="订购数据" :visible.sync="dgdata" width="60%" :before-close="sjdata">
+      <el-dialog title="数据订单" :visible.sync="dgdata" width="60%" :before-close="sjdata">
         <p :class="$style.f_jb">基本信息</p>
         <div :class="$style.f_hxrow">
           <span :class="$style.f_ddname">订单名称:</span>
@@ -737,7 +217,7 @@
             clearable
           ></el-input>
         </div>
-        <div :class="$style.f_hxrow">
+        <!-- <div :class="$style.f_hxrow">
           <div style="line-height: 40px;margin-right: 1%;display: inline-block;">
             <span :class="$style.f_ddname">数据范围:</span>
           </div>
@@ -812,20 +292,20 @@
         <div :class="$style.f_hxrow">
           <span :class="$style.f_ddname">订购金额：</span>
           <span :class="$style.f_ddname" v-if="dgmoney!=null">{{dgmoney}}VKT</span>
-        </div>
+        </div> -->
         <p :class="$style.f_jb" style="margin-top:20px;">媒体平台</p>
         <div style="margin-top:20px;">
           <div :class="$style.f_s5">
-            <el-select v-model="platform" clearable placeholder="请选择" @change="mass">
+            <el-select v-model="platform" clearable placeholder="请选择媒体平台" @change="mass">
               <el-option v-for="item in media" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </div>
           <div :class="$style.f_s5">
-            <el-input placeholder="请输入账户" v-model="user" clearable></el-input>
+            <el-input placeholder="请输入媒体账户" v-model="user" clearable></el-input>
           </div>
           <div :class="$style.f_s5">
             <el-input
-              placeholder="请输入密码"
+              placeholder="请输入媒体账户登录密码"
               v-model="password"
               type="password"
               show-password
@@ -1019,6 +499,7 @@ export default {
       nl: "",
       zy: "",
       gzdd: "",
+      name:'',
       platform: "",
       user: "",
       // 订单名称
@@ -1058,7 +539,10 @@ export default {
       mappingPrice: null,
       refer: false,
       list: null,
-      riqi: ""
+      riqi: "",
+      renwuname:'',
+      fromDate:'',
+      toDate:''
     };
   },
   mounted() {
@@ -1171,7 +655,7 @@ export default {
         .get(`pc/task/exhibitionList`, {
           params: {
             tab: 0,
-            type:2,
+            type:1,
             size: this.sizes
           }
         })
@@ -1209,208 +693,12 @@ export default {
         console.log(this.tableData1);
       }
     },
-    // 已完成任务
-    ywc() {
-      this.xz1 = false;
-      this.xz = true;
-      this.xz2 = false;
-      this.xz3 = true;
-      this.xz4 = true;
-      this.xz5 = false;
-      this.xz6 = true;
-      this.xz7 = false;
-      this.xz8 = true;
-      this.xz9 = false;
-      this.currentPage4 = 1;
-      this.$http
-        .get(`pc/task/exhibitionList`, {
-          params: {
-            tab: 1,
-            type:2,
-            size: this.sizes
-          }
-        })
-        .then(res => {
-          var { code, data } = res.data;
-          if (code === 1000) {
-            this.total = data.total;
-            this.tableData = data.content;
-            this.tableData.forEach(item => {
-              item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
-              item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
-              if (item.collectList[0] === undefined) {
-                console.log(1);
-              } else {
-                item.cj = item.collectList[0].scencesName;
-              }
-            });
-            console.log(this.tableData);
-          } else if (code == 2001) {
-            this.$message.error(res.data.message);
-            window.sessionStorage.clear();
-            window.localStorage.clear();
-            this.$router.push("/");
-          } else {
-            this.$message.error(res.data.message);
-          }
-        })
-        .catch(function(err) {
-          console.log("连接错误" + err);
-        });
-    },
-    // 未完成
-    wwc() {
-      this.xz1 = false;
-      this.xz = true;
-      this.xz2 = true;
-      this.xz3 = false;
-      this.xz4 = false;
-      this.xz5 = true;
-      this.xz6 = true;
-      this.xz7 = false;
-      this.xz8 = true;
-      this.xz9 = false;
-      this.currentPage4 = 1;
-      this.$http
-        .get(`pc/task/exhibitionList`, {
-          params: {
-            tab: 2,
-            type:2,
-            size: this.sizes
-          }
-        })
-        .then(res => {
-          var { code, data } = res.data;
-          if (code === 1000) {
-            this.total = data.total;
-            this.tableData = data.content;
-            this.tableData.forEach(item => {
-              item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
-              item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
-              if (item.collectList[0] === undefined) {
-                console.log(1);
-              } else {
-                item.cj = item.collectList[0].scencesName;
-              }
-            });
-            console.log(this.tableData);
-          } else if (code == 2001) {
-            this.$message.error(res.data.message);
-            window.sessionStorage.clear();
-            window.localStorage.clear();
-            this.$router.push("/");
-          } else {
-            this.$message.error(res.data.message);
-          }
-        })
-        .catch(function(err) {
-          console.log("连接错误" + err);
-        });
-    },
-    // 自建任务
-    zzrw() {
-      this.xz1 = false;
-      this.xz = true;
-      this.xz2 = true;
-      this.xz3 = false;
-      this.xz4 = true;
-      this.xz5 = false;
-      this.xz6 = false;
-      this.xz7 = true;
-      this.xz8 = true;
-      this.xz9 = false;
-      this.currentPage4 = 1;
-      this.$http
-        .get(`pc/task/exhibitionList`, {
-          params: {
-            tab: 3,
-            type:2,
-            size: this.sizes
-          }
-        })
-        .then(res => {
-          var { code, data } = res.data;
-          if (code === 1000) {
-            this.total = data.total;
-            this.tableData = data.content;
-            this.tableData.forEach(item => {
-              item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
-              item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
-              if (item.collectList[0] === undefined) {
-                console.log(1);
-              } else {
-                item.cj = item.collectList[0].scencesName;
-              }
-            });
-            console.log(this.tableData);
-          } else if (code == 2001) {
-            this.$message.error(res.data.message);
-            window.sessionStorage.clear();
-            window.localStorage.clear();
-            this.$router.push("/");
-          } else {
-            this.$message.error(res.data.message);
-          }
-        })
-        .catch(function(err) {
-          console.log("连接错误" + err);
-        });
-    },
-    // 平台任务
-    ptrw() {
-      this.xz1 = false;
-      this.xz = true;
-      this.xz2 = true;
-      this.xz3 = false;
-      this.xz4 = true;
-      this.xz5 = false;
-      this.xz6 = true;
-      this.xz7 = false;
-      this.xz8 = false;
-      this.xz9 = true;
-      this.currentPage4 = 1;
-      this.$http
-        .get(`pc/task/exhibitionList`, {
-          params: {
-            tab: 4,
-            type:2,
-            size: this.sizes
-          }
-        })
-        .then(res => {
-          var { code, data } = res.data;
-          if (code === 1000) {
-            this.total = data.total;
-            this.tableData = data.content;
-            this.tableData.forEach(item => {
-              item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
-              item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
-              if (item.collectList[0] === undefined) {
-                console.log(1);
-              } else {
-                item.cj = item.collectList[0].scencesName;
-              }
-            });
-            console.log(this.tableData);
-          } else if (code == 2001) {
-            this.$message.error(res.data.message);
-            window.sessionStorage.clear();
-            window.localStorage.clear();
-            this.$router.push("/");
-          } else {
-            this.$message.error(res.data.message);
-          }
-        })
-        .catch(function(err) {
-          console.log("连接错误" + err);
-        });
-    },
     // 详情页面
     point(index, row) {
       let id = row.id;
       console.log(id);
       this.$router.push({
-        path: "/index/rwpoint.vue",
+        path: "/index/showdetails.vue",
         query: { id: id, rwname: row.name }
       });
     },
@@ -1420,7 +708,7 @@ export default {
         .get(`pc/task/exhibitionList`, {
           params: {
             tab: 0,
-            type:2,
+            type:1,
             size: val
           }
         })
@@ -1460,7 +748,7 @@ export default {
           .get(`pc/task/exhibitionList`, {
             params: {
               tab: 0,
-              type:2,
+              type:1,
               size: this.sizes,
               page: val - 1
             }
@@ -1497,7 +785,7 @@ export default {
           .get(`pc/task/exhibitionList`, {
             params: {
               tab: 1,
-              type:2,
+              type:1,
               size: this.sizes,
               page: val - 1
             }
@@ -1534,7 +822,7 @@ export default {
           .get(`pc/task/exhibitionList`, {
             params: {
               tab: 2,
-              type:2,
+              type:1,
               size: this.sizes,
               page: val - 1
             }
@@ -1571,7 +859,7 @@ export default {
           .get(`pc/task/exhibitionList`, {
             params: {
               tab: 3,
-              type:2,
+              type:1,
               size: this.sizes,
               page: val - 1
             }
@@ -1608,7 +896,7 @@ export default {
           .get(`pc/task/exhibitionList`, {
             params: {
               tab: 4,
-              type:2,
+              type:1,
               size: this.sizes,
               page: val - 1
             }
@@ -1643,41 +931,41 @@ export default {
       }
     },
     // 订购画像
-    orderikion() {
-      console.log(this.searchId);
-      let ids = this.searchId.join(",");
-      console.log(ids);
-      if (ids === "") {
-        this.$message.error("请先选择需要订购的画像");
-      } else {
-        let info = {
-          ids: ids,
-          type: 2
-        };
-        this.$http
-          .post(`pc/task/orderInit`, info)
-          .then(res => {
-            var { code, data } = res.data;
-            if (code === 1000) {
-              console.log(data);
-              this.ordername = data.name;
-              this.moeny = data.personaPrice;
-              this.ysjl = data.dataCount;
-            } else if (code == 2001) {
-              this.$message.error(res.data.message);
-              window.sessionStorage.clear();
-              window.localStorage.clear();
-              this.$router.push("/");
-            } else {
-              this.$message.error(res.data.message);
-            }
-          })
-          .catch(err => {
-            console.log("错误信息" + err);
-          });
-        this.ikon = true;
-      }
-    },
+    // orderikion() {
+    //   console.log(this.searchId);
+    //   let ids = this.searchId.join(",");
+    //   console.log(ids);
+    //   if (ids === "") {
+    //     this.$message.error("请先选择需要订购的画像");
+    //   } else {
+    //     let info = {
+    //       ids: ids,
+    //       type: 2
+    //     };
+    //     this.$http
+    //       .post(`pc/task/exhibitionOrderInit`, info)
+    //       .then(res => {
+    //         var { code, data } = res.data;
+    //         if (code === 1000) {
+    //           console.log(data);
+    //           this.ordername = data.name;
+    //           this.moeny = data.personaPrice;
+    //           this.ysjl = data.dataCount;
+    //         } else if (code == 2001) {
+    //           this.$message.error(res.data.message);
+    //           window.sessionStorage.clear();
+    //           window.localStorage.clear();
+    //           this.$router.push("/");
+    //         } else {
+    //           this.$message.error(res.data.message);
+    //         }
+    //       })
+    //       .catch(err => {
+    //         console.log("错误信息" + err);
+    //       });
+    //     this.ikon = true;
+    //   }
+    // },
     // 订购数据
     orderdata() {
       let ids = this.searchId.join(",");
@@ -1719,7 +1007,7 @@ export default {
           .catch(function(err) {
             console.log("错误信息" + err);
           });
-        this.$http.post(`pc/task/orderInit`, { ids: ids, type: 1 }).then(res => {
+        this.$http.post(`pc/task/exhibitionOrderInit`, { ids: ids, type: 1 }).then(res => {
             var { code, data } = res.data;
             if (code === 1000) {
               console.log(data);
@@ -1753,9 +1041,6 @@ export default {
         this.refer = true;
       } else if (this.buyAmount <= 0) {
         this.$message.error("输入有误,请重新输入");
-        this.refer = true;
-      } else if (this.riqi < this.buyAmount) {
-        this.$message.error("需要选择日期购买数据");
         this.refer = true;
       } else {
         this.dgmoney = Number(this.buyAmount) * this.dataPrice;
@@ -1904,6 +1189,32 @@ export default {
         .catch(err => {
           console.log("错误信息" + err);
         });
+        this.$http.get(`modules/task/detail/${this.taskId}`, {
+          // params: {
+          //   id: this.taskId
+          // }
+        })
+        .then(res => {
+          var { code, data } = res.data;
+          if (code === 1000) {
+            // this.acquisitionscene = data;
+            this.renwuname = data.taskName;
+            this.fromDate = data.fromDate;
+            this.toDate  = data.toDate;
+            console.log('a',this.fromDate)
+            console.log('a',this.toDate)
+          } else if (code == 2001) {
+            this.$message.error(res.data.message);
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            this.$router.push("/");
+          } else {
+            this.$message.error(res.data.message);
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
       this.$http
         .get(`pc/task/scencesBytask`, {
           params: {
@@ -1914,6 +1225,7 @@ export default {
           var { code, data } = res.data;
           if (code === 1000) {
             this.acquisitionscene = data;
+            console.log(this.acquisitionscene)
           } else if (code == 2001) {
             this.$message.error(res.data.message);
             window.sessionStorage.clear();
@@ -2218,63 +1530,65 @@ export default {
         });
     },
     queding() {
-      this.$message.error('当前是展示平台，如需订购数据请联系管理员');
-      this.dgdata = false;
-      // this.$confirm("是否确定提交订购数据, 是否继续?", "提示", {
-      //   confirmButtonText: "确定",
-      //   cancelButtonText: "取消",
-      //   type: "warning"
-      // })
-      //   .then(() => {
-      //     let info = {
-      //       name: this.formname,
-      //       buyAmount: this.buyAmount,
-      //       ids: this.ids,
-      //       taskIds: this.id,
-      //       buyPrice: this.dgmoney,
-      //       gender: this.jzdd,
-      //       agebin: this.age,
-      //       occupation: this.zy,
-      //       workplaceProvince: this.workplace[0],
-      //       workplaceCity: this.workplace[1],
-      //       residenceProvince: this.placeofresidence[0],
-      //       residenceCity: this.placeofresidence[1],
-      //       startDate: this.sdata[0],
-      //       endDate: this.sdata[1]
-      //     };
-      //     if (this.refer === true) {
-      //       this.$message.error("订购数量输入有误,请重新输入");
-      //     } else {
-      //       this.$http
-      //         .post(`pc/task/orderData`, info)
-      //         .then(res => {
-      //           var { code, data } = res.data;
-      //           if (code === 1000) {
-      //             this.$message({
-      //               type: "success",
-      //               message: "提交成功!"
-      //             });
-      //           } else if (code == 2001) {
-      //             this.$message.error(res.data.message);
-      //             window.sessionStorage.clear();
-      //             window.localStorage.clear();
-      //             this.$router.push("/");
-      //           } else {
-      //             this.$message.error(res.data.message);
-      //           }
-      //         })
-      //         .catch(function(err) {
-      //           console.log("错误信息" + err);
-      //         });
-      //       this.dgdata = false;
-      //     }
-      //   })
-      //   .catch(() => {
-      //     this.$message({
-      //       type: "info",
-      //       message: "已取消"
-      //     });
-      //   });
+      // this.$message.error('当前是展示平台，如需订购数据请联系管理员');
+      // this.dgdata = false;
+      this.$confirm("是否确定提交订购数据, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let info = {
+            name: this.formname,
+            buyAmount: this.buyAmount,
+            ids: this.ids,
+            taskIds: this.id,
+            // buyPrice: this.dgmoney,
+            buyPrice: 0,
+            actualPrice:0,
+            // gender: this.jzdd,
+            // agebin: this.age,
+            // occupation: this.zy,
+            // workplaceProvince: this.workplace[0],
+            // workplaceCity: this.workplace[1],
+            // residenceProvince: this.placeofresidence[0],
+            // residenceCity: this.placeofresidence[1],
+            startDate: this.sdata[0],
+            endDate: this.sdata[1]
+          };
+          if (this.refer === true) {
+            this.$message.error("订购数量输入有误,请重新输入");
+          } else {
+            this.$http
+              .post(`pc/task/exhibitionData`, info)
+              .then(res => {
+                var { code, data } = res.data;
+                if (code === 1000) {
+                  this.$message({
+                    type: "success",
+                    message: "提交成功!"
+                  });
+                } else if (code == 2001) {
+                  this.$message.error(res.data.message);
+                  window.sessionStorage.clear();
+                  window.localStorage.clear();
+                  this.$router.push("/");
+                } else {
+                  this.$message.error(res.data.message);
+                }
+              })
+              .catch(function(err) {
+                console.log("错误信息" + err);
+              });
+            this.dgdata = false;
+          }
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消"
+          });
+        });
     },
     define() {},
     cancel() {

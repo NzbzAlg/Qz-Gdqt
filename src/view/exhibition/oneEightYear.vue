@@ -667,45 +667,14 @@
     <div :class="$style.f_jz">
       <footerl />
     </div>
-    <!-- 订购画像 -->
-    <div class="f_dg">
-      <el-dialog title="订购画像" :visible.sync="ikon" width="30%" :before-close="gb">
-        <p :class="$style.f_jb">基本信息</p>
-        <el-row :class="$style.f_hxrow">
-          <span :class="$style.f_ddname">订单名称:</span>
-          <el-input placeholder="请输入内容" v-model="ordername" :class="$style.f_hxinpt" clearable></el-input>
-        </el-row>
-        <p :class="$style.f_sjxx">数据信息</p>
-        <el-row :class="$style.f_hxrow">
-          <span :class="$style.f_ddname">源数据量：</span>
-          <span :class="$style.f_ddname">{{ysjl}}</span>
-        </el-row>
-        <el-row :class="$style.f_hxrow">
-          <span :class="$style.f_ddname">订购金额：</span>
-          <span :class="$style.f_ddname">{{moeny}}VKT</span>
-        </el-row>
-        <p :class="$style.f_sjxx">订单备注</p>
-        <el-input
-          type="textarea"
-          :autosize="{ minRows: 2, maxRows: 4}"
-          placeholder="请输入内容"
-          style="margin-top:20px;"
-          v-model="textarea2"
-        ></el-input>
-        <span slot="footer" class="dialog-footer">
-          <span @click="ikon = false" style="display: inline-block;" :class="$style.f_btn">取消</span>
-          <span @click="determine" style="display: inline-block;" :class="$style.f_btn">确定</span>
-        </span>
-      </el-dialog>
-    </div>
     <!-- 订购数据 -->
     <div class="f_dgsj">
       <el-dialog title="订购数据" :visible.sync="dgdata" width="60%" :before-close="sjdata">
-        <p :class="$style.f_jb">基本信息</p>
+        <!-- <p :class="$style.f_jb">基本信息</p>
         <div :class="$style.f_hxrow">
           <span :class="$style.f_ddname">订单名称:</span>
           <el-input placeholder="请输入内容" v-model="formname" :class="$style.f_hxinpt" clearable></el-input>
-        </div>
+        </div> -->
         <p :class="$style.f_sjxx">数据信息</p>
         <div :class="$style.f_hxrow">
           <span :class="$style.f_ddname">源数据总量：</span>
@@ -737,7 +706,7 @@
             clearable
           ></el-input>
         </div>
-        <div :class="$style.f_hxrow">
+        <!-- <div :class="$style.f_hxrow">
           <div style="line-height: 40px;margin-right: 1%;display: inline-block;">
             <span :class="$style.f_ddname">数据范围:</span>
           </div>
@@ -812,7 +781,7 @@
         <div :class="$style.f_hxrow">
           <span :class="$style.f_ddname">订购金额：</span>
           <span :class="$style.f_ddname" v-if="dgmoney!=null">{{dgmoney}}VKT</span>
-        </div>
+        </div> -->
         <p :class="$style.f_jb" style="margin-top:20px;">媒体平台</p>
         <div style="margin-top:20px;">
           <div :class="$style.f_s5">

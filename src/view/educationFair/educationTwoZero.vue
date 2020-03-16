@@ -5,7 +5,7 @@
       <div :class="$style.f_row">
         <div :class="{'f_fy':xz,'f_fy1':xz1}" @click="qb" style="width:100px">展会数据列表</div>
         <div style="float:right;display:inline-block;margin-right: 14px;">
-          <div :class="$style.f_btn" @click="orderdata">选择数据</div>
+          <div :class="$style.f_btn" @click="orderdata">订购数据</div>
         </div>
       </div>
       <!-- <router-view></router-view> -->
@@ -78,13 +78,13 @@
               </el-table>
             </template>
           </el-table-column>
-          <el-table-column prop="cj" align="left" label="场景名称" width="105"></el-table-column>
+          <el-table-column prop="cj" align="left" label="场景" width="105"></el-table-column>
           <!-- <el-table-column align="center" label="任务类型" width="90">
             <template slot-scope="scope">
               <span v-if="scope.row.platformTask===null">自建任务</span>
               <span v-if="scope.row.platformTask!==null">平台任务</span>
-            </template> -->
-          </el-table-column>
+            </template>
+          </el-table-column> -->
           <el-table-column align="center" label="状态" width="80">
             <template slot-scope="scope">
               <span
@@ -119,9 +119,6 @@
               </span>
             </template>
           </el-table-column>
-          <!-- <el-table-column label="编辑" width="80" align="center">
-            <el-button>编辑</el-button>
-          </el-table-column>-->
         </el-table>
       </div>
       <!-- 分页 -->
@@ -297,8 +294,8 @@
               ></el-option>
             </el-select>
           </div>
-        </div>
-        <div :class="$style.f_hxrow">
+        </div> -->
+        <!-- <div :class="$style.f_hxrow">
           <div style="line-height: 40px;margin-left:9%;display: inline-block;" :span="2">
             <span>工作地点:</span>
           </div>
@@ -579,6 +576,7 @@ export default {
       renwuname:'',
       fromDate:'',
       toDate:''
+
     };
   },
   mounted() {
@@ -691,7 +689,7 @@ export default {
         .get(`pc/task/exhibitionList`, {
           params: {
             tab: 0,
-            type:2,
+            type:9,
             size: this.sizes
           }
         })
@@ -729,6 +727,202 @@ export default {
         console.log(this.tableData1);
       }
     },
+    // 已完成任务
+    ywc() {
+      this.xz1 = false;
+      this.xz = true;
+      this.xz2 = false;
+      this.xz3 = true;
+      this.xz4 = true;
+      this.xz5 = false;
+      this.xz6 = true;
+      this.xz7 = false;
+      this.xz8 = true;
+      this.xz9 = false;
+      this.currentPage4 = 1;
+      this.$http
+        .get(`pc/task/exhibitionList`, {
+          params: {
+            tab: 1,
+            type:9,
+            size: this.sizes
+          }
+        })
+        .then(res => {
+          var { code, data } = res.data;
+          if (code === 1000) {
+            this.total = data.total;
+            this.tableData = data.content;
+            this.tableData.forEach(item => {
+              item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
+              item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
+              if (item.collectList[0] === undefined) {
+                console.log(1);
+              } else {
+                item.cj = item.collectList[0].scencesName;
+              }
+            });
+            console.log(this.tableData);
+          } else if (code == 2001) {
+            this.$message.error(res.data.message);
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            this.$router.push("/");
+          } else {
+            this.$message.error(res.data.message);
+          }
+        })
+        .catch(function(err) {
+          console.log("连接错误" + err);
+        });
+    },
+    // 未完成
+    wwc() {
+      this.xz1 = false;
+      this.xz = true;
+      this.xz2 = true;
+      this.xz3 = false;
+      this.xz4 = false;
+      this.xz5 = true;
+      this.xz6 = true;
+      this.xz7 = false;
+      this.xz8 = true;
+      this.xz9 = false;
+      this.currentPage4 = 1;
+      this.$http
+        .get(`pc/task/exhibitionList`, {
+          params: {
+            tab: 2,
+            type:9,
+            size: this.sizes
+          }
+        })
+        .then(res => {
+          var { code, data } = res.data;
+          if (code === 1000) {
+            this.total = data.total;
+            this.tableData = data.content;
+            this.tableData.forEach(item => {
+              item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
+              item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
+              if (item.collectList[0] === undefined) {
+                console.log(1);
+              } else {
+                item.cj = item.collectList[0].scencesName;
+              }
+            });
+            console.log(this.tableData);
+          } else if (code == 2001) {
+            this.$message.error(res.data.message);
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            this.$router.push("/");
+          } else {
+            this.$message.error(res.data.message);
+          }
+        })
+        .catch(function(err) {
+          console.log("连接错误" + err);
+        });
+    },
+    // 自建任务
+    zzrw() {
+      this.xz1 = false;
+      this.xz = true;
+      this.xz2 = true;
+      this.xz3 = false;
+      this.xz4 = true;
+      this.xz5 = false;
+      this.xz6 = false;
+      this.xz7 = true;
+      this.xz8 = true;
+      this.xz9 = false;
+      this.currentPage4 = 1;
+      this.$http
+        .get(`pc/task/exhibitionList`, {
+          params: {
+            tab: 3,
+            type:9,
+            size: this.sizes
+          }
+        })
+        .then(res => {
+          var { code, data } = res.data;
+          if (code === 1000) {
+            this.total = data.total;
+            this.tableData = data.content;
+            this.tableData.forEach(item => {
+              item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
+              item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
+              if (item.collectList[0] === undefined) {
+                console.log(1);
+              } else {
+                item.cj = item.collectList[0].scencesName;
+              }
+            });
+            console.log(this.tableData);
+          } else if (code == 2001) {
+            this.$message.error(res.data.message);
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            this.$router.push("/");
+          } else {
+            this.$message.error(res.data.message);
+          }
+        })
+        .catch(function(err) {
+          console.log("连接错误" + err);
+        });
+    },
+    // 平台任务
+    ptrw() {
+      this.xz1 = false;
+      this.xz = true;
+      this.xz2 = true;
+      this.xz3 = false;
+      this.xz4 = true;
+      this.xz5 = false;
+      this.xz6 = true;
+      this.xz7 = false;
+      this.xz8 = false;
+      this.xz9 = true;
+      this.currentPage4 = 1;
+      this.$http
+        .get(`pc/task/exhibitionList`, {
+          params: {
+            tab: 4,
+            type:9,
+            size: this.sizes
+          }
+        })
+        .then(res => {
+          var { code, data } = res.data;
+          if (code === 1000) {
+            this.total = data.total;
+            this.tableData = data.content;
+            this.tableData.forEach(item => {
+              item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
+              item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
+              if (item.collectList[0] === undefined) {
+                console.log(1);
+              } else {
+                item.cj = item.collectList[0].scencesName;
+              }
+            });
+            console.log(this.tableData);
+          } else if (code == 2001) {
+            this.$message.error(res.data.message);
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            this.$router.push("/");
+          } else {
+            this.$message.error(res.data.message);
+          }
+        })
+        .catch(function(err) {
+          console.log("连接错误" + err);
+        });
+    },
     // 详情页面
     point(index, row) {
       let id = row.id;
@@ -744,7 +938,7 @@ export default {
         .get(`pc/task/exhibitionList`, {
           params: {
             tab: 0,
-            type:2,
+            type:9,
             size: val
           }
         })
@@ -779,11 +973,12 @@ export default {
     },
     handleCurrentChange(val) {
       this.pages = val;
+      if (this.xz1 === true) {
         this.$http
           .get(`pc/task/exhibitionList`, {
             params: {
               tab: 0,
-              type:2,
+              type:9,
               size: this.sizes,
               page: val - 1
             }
@@ -815,6 +1010,155 @@ export default {
           .catch(function(err) {
             console.log("连接错误" + err);
           });
+      } else if (this.xz3 === true) {
+        this.$http
+          .get(`pc/task/exhibitionList`, {
+            params: {
+              tab: 1,
+              type:9,
+              size: this.sizes,
+              page: val - 1
+            }
+          })
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.total = data.total;
+              this.tableData = data.content;
+              this.tableData.forEach(item => {
+                item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
+                item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
+                console.log(item.collectList);
+                if (item.collectList[0] === undefined) {
+                  console.log(1);
+                } else if (item.collectList[0] != undefined) {
+                  item.cj = item.collectList[0].scencesName;
+                }
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          })
+          .catch(function(err) {
+            console.log("连接错误" + err);
+          });
+      } else if (this.xz5 === true) {
+        this.$http
+          .get(`pc/task/exhibitionList`, {
+            params: {
+              tab: 2,
+              type:9,
+              size: this.sizes,
+              page: val - 1
+            }
+          })
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.total = data.total;
+              this.tableData = data.content;
+              this.tableData.forEach(item => {
+                item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
+                item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
+                console.log(item.collectList);
+                if (item.collectList[0] === undefined) {
+                  console.log(1);
+                } else if (item.collectList[0] != undefined) {
+                  item.cj = item.collectList[0].scencesName;
+                }
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          })
+          .catch(function(err) {
+            console.log("连接错误" + err);
+          });
+      } else if (this.xz7 === true) {
+        this.$http
+          .get(`pc/task/exhibitionList`, {
+            params: {
+              tab: 3,
+              type:9,
+              size: this.sizes,
+              page: val - 1
+            }
+          })
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.total = data.total;
+              this.tableData = data.content;
+              this.tableData.forEach(item => {
+                item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
+                item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
+                console.log(item.collectList);
+                if (item.collectList[0] === undefined) {
+                  console.log(1);
+                } else if (item.collectList[0] != undefined) {
+                  item.cj = item.collectList[0].scencesName;
+                }
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          })
+          .catch(function(err) {
+            console.log("连接错误" + err);
+          });
+      } else if (this.xz9 === true) {
+        this.$http
+          .get(`pc/task/exhibitionList`, {
+            params: {
+              tab: 4,
+              type:9,
+              size: this.sizes,
+              page: val - 1
+            }
+          })
+          .then(res => {
+            var { code, data } = res.data;
+            if (code === 1000) {
+              this.total = data.total;
+              this.tableData = data.content;
+              this.tableData.forEach(item => {
+                item.date = item.fromDate + "\n" + "至" + "\n" + item.toDate;
+                item.time = item.fromTime + ":00" + "-" + item.toTime + ":00";
+                console.log(item.collectList);
+                if (item.collectList[0] === undefined) {
+                  console.log(1);
+                } else if (item.collectList[0] != undefined) {
+                  item.cj = item.collectList[0].scencesName;
+                }
+              });
+            } else if (code == 2001) {
+              this.$message.error(res.data.message);
+              window.sessionStorage.clear();
+              window.localStorage.clear();
+              this.$router.push("/");
+            } else {
+              this.$message.error(res.data.message);
+            }
+          })
+          .catch(function(err) {
+            console.log("连接错误" + err);
+          });
+      }
     },
     // 订购画像
     // orderikion() {
@@ -1075,6 +1419,28 @@ export default {
         .catch(err => {
           console.log("错误信息" + err);
         });
+      this.$http
+        .get(`pc/task/scencesBytask`, {
+          params: {
+            taskId: this.taskId
+          }
+        })
+        .then(res => {
+          var { code, data } = res.data;
+          if (code === 1000) {
+            this.acquisitionscene = data;
+          } else if (code == 2001) {
+            this.$message.error(res.data.message);
+            window.sessionStorage.clear();
+            window.localStorage.clear();
+            this.$router.push("/");
+          } else {
+            this.$message.error(res.data.message);
+          }
+        })
+        .catch(err => {
+          console.log("错误信息" + err);
+        });
         this.$http.get(`modules/task/detail/${this.taskId}`, {
           // params: {
           //   id: this.taskId
@@ -1089,28 +1455,6 @@ export default {
             this.toDate  = data.toDate;
             console.log('a',this.fromDate)
             console.log('a',this.toDate)
-          } else if (code == 2001) {
-            this.$message.error(res.data.message);
-            window.sessionStorage.clear();
-            window.localStorage.clear();
-            this.$router.push("/");
-          } else {
-            this.$message.error(res.data.message);
-          }
-        })
-        .catch(err => {
-          console.log("错误信息" + err);
-        });
-      this.$http
-        .get(`pc/task/scencesBytask`, {
-          params: {
-            taskId: this.taskId
-          }
-        })
-        .then(res => {
-          var { code, data } = res.data;
-          if (code === 1000) {
-            this.acquisitionscene = data;
           } else if (code == 2001) {
             this.$message.error(res.data.message);
             window.sessionStorage.clear();

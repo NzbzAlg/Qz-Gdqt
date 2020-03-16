@@ -1,7 +1,7 @@
 <template>
   <div class="exhibition">
     <p class="headline">
-      <b>2020年度家装建材展专业观众数据</b>
+      <b>2020年度教育展专业观众数据</b>
     </p>
     <p class="presell">
       <b>火爆预售中</b>
@@ -13,34 +13,13 @@
             <span style="font-size:30px;font-weight:bold;color:rgba(60,115,220,1);">2020</span>
             <span style="font-size:20px;font-weight:bold;color:rgba(60,115,220,1);">年度</span>
           </p>
-          <p style="font-size:20px;font-weight:bold;color:rgba(60,115,220,1);padding:0 0;">家装建材数据</p>
+          <p style="font-size:20px;font-weight:bold;color:rgba(60,115,220,1);padding:0 0;">教育数据</p>
         </div>
         <div class="year_right">
           <div class="examine">
             <p
               style="font-size:18px;font-weight:bold;color:rgba(255,255,255,1);"
               @click="twoZeroYear"
-            >
-              点击查看
-              <i class="el-icon-right"></i>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="oneNine">
-        <div class="year_left">
-          <p style="padding: 0 0 ;margin-top:15px">
-            <span style="font-size:30px;font-weight:bold;color:#D04FFA;">2019</span>
-            <span style="font-size:20px;font-weight:bold;color:#D04FFA;">年度</span>
-          </p>
-          <p style="font-size:20px;font-weight:bold;color:#D04FFA;padding:0 0;">家装建材数据</p>
-        </div>
-        <div class="year_right">
-          <div class="examines">
-            <!-- <p>点击查看</p> -->
-            <p
-              style="font-size:18px;font-weight:bold;color:rgba(255,255,255,1);"
-              @click="oneNineYear"
             >
               点击查看
               <i class="el-icon-right"></i>
@@ -135,14 +114,14 @@ export default {
       return percentage === 100 ? "" : ``;
     },
     twoZeroYear() {
-      this.$router.push("/index/twoZeroYear.vue");
+      this.$router.push("/index/educationTwoZero.vue");
     },
     oneNineYear() {
       this.$router.push("/index/oneNineYear.vue");
     },
     getTask() {
       this.$http.get("pc/task/countExhibitionTask",{params:{
-        type:7
+        type:9
       }}).then(res => {
         var { code, data } = res;
         if (data.code === 1000) {
@@ -312,7 +291,7 @@ export default {
   margin-top: 15px;
 }
 .content_center .center_data {
-  width: 154px!important;
+  width: 150px;
   height: 60px;
   background: rgba(255, 255, 255, 1);
   border-radius: 8px;
@@ -339,9 +318,8 @@ export default {
   height: 30px;
   background: rgba(255, 255, 255, 1);
   border-radius: 20px;
-  // margin-left: 530px;
-  // padding-top: 20px;
-  margin: auto;
+  margin:auto ;
+  // margin-top: 20px;
   cursor: pointer;
 }
 </style>

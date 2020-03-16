@@ -79,7 +79,7 @@ uniteaxios.install = function (Vue) {
       sign = utils.getSign(config.params)
       // console.log(sign)
       config.params[constants.PARAM_SIGN_NAME] = sign
-    } else {
+    }  else {
       if (config.data instanceof FormData) {
         console.log(config )
         config.data.append('timestamp', new Date().getTime())

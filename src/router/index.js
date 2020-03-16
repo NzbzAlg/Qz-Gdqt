@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // 登陆
 const Login = () => import('@/login/login.vue')
+const Visitor = () => import('@/login/visitor.vue')
 // 首页
 const Index = () => import('@/view/index.vue')
 const Indexx = () => import('@/view/indexx.vue')
@@ -13,6 +14,7 @@ const Fiexikon = () => import('@/view/mydata/fiexikon.vue')
 const Datarepo = () => import('@/view/mydata/datarepo.vue')
 const Createtask = () => import('@/view/mydata/createtask.vue')
 const Rwpoint = () => import('@/view/mydata/rwpoint.vue')
+const Showdetails = () => import('@/view/mydata/showdetails.vue')
 const Ddpoint = () => import('@/view/mydata/ddpoint.vue')
 const Ikonpoint = () => import('@/view/mydata/ikonpoint.vue')
 const Dataikonpoint = () => import('@/view/mydata/dataikonpoint.vue')
@@ -52,19 +54,31 @@ const Agent = () => import('@/view/xj/agent.vue')
 const Lowertasks = () => import('@/view/xj/lowertasks.vue')
 const Lowerend = () => import('@/view/xj/lowerend.vue')
 const AllLowerend = () => import('@/view/xj/allLowerend.vue')
-//展示大厅
+//家装建材展示大厅
 const Exhibition = () => import('@/view/exhibition/exhibition.vue')
 const TwoZeroYear = () => import('@/view/exhibition/twoZeroYear.vue')
 const OneNineYear = () => import('@/view/exhibition/oneNineYear.vue')
 const OneEightYear = () => import('@/view/exhibition/oneEightYear.vue')
+//孕育童展示大厅
+const ChildrenShow = () => import('@/view/childrenShow/childrenShow.vue')
+const ChildernTwoZero = () => import('@/view/childrenShow/childernTwoZero.vue')
+//教育行业展示大厅
+const EducationFair = () => import('@/view/educationFair/educationFair.vue')
+const EducationTwoZero = () => import('@/view/educationFair/educationTwoZero.vue')
 Vue.use(Router)
 
 const router = new Router({
   // mode: 'history',
-  routes: [{
+  routes: [
+    {
       path: '/',
       name: 'Login',
-      component: Login
+      component: Login,
+    },
+    {
+      path: '/visitor',
+      name: 'visitor',
+      component: Visitor,
     },
     {
       path: '/index',
@@ -126,6 +140,10 @@ const router = new Router({
         {
           path: 'rwpoint.vue',
           component: Rwpoint
+        },
+        {
+          path: 'showdetails.vue',
+          component: Showdetails
         },
         {
           path: 'ddpoint.vue',
@@ -276,6 +294,24 @@ const router = new Router({
         {
           path: 'allLowerend.vue',
           component: AllLowerend
+        },
+        //孕育童
+        {
+          path:'childrenShow.vue',
+          component:ChildrenShow
+        },
+        {
+          path:'childernTwoZero.vue',
+          component:ChildernTwoZero
+        },
+        //教育展会
+        {
+          path:'educationFair.vue',
+          component:EducationFair
+        },
+        {
+          path:'educationTwoZero.vue',
+          component:EducationTwoZero
         },
         // 基本信息
         {
